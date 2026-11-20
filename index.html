@@ -1,0 +1,1644 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiny House · Casas modulares</title>
+<meta name="description" content="Configura tu casa modular Tiny House: elige medidas, distribución y terminaciones.">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS · "Plano azul": azul de marca + negro (logo) ============ */
+:root{
+  /* neutros fríos */
+  --c-bg:#F5F7FB;
+  --c-surface:#FFFFFF;
+  --c-sunken:#EBEFF6;
+  --c-ink:#0B0D12;          /* negro del logo */
+  --c-ink-2:#3A4150;
+  --c-muted:#5E6676;
+  --c-border:#DDE3EC;
+  --c-border-strong:#8A93A3;
+  /* seleccionado / estructura: negro */
+  --c-primary:#0B0D12;
+  --c-primary-hover:#000000;
+  --c-primary-tint:#EEF1F6;
+  /* acción y marca: azul del logo */
+  --c-action:#0552E6;
+  --c-action-hover:#0443B8;
+  --c-blue-tint:#E6EEFF;
+  --c-blue-ink:#0443B8;
+  /* madera (solo ilustraciones) */
+  --c-wood:#C79A6B;
+  --c-wood-ink:#7F5A37;
+  --c-wood-tint:#F1E4D3;
+  /* superficies oscuras */
+  --c-dark:#0E1117;
+  --c-dark-2:#1A1F29;
+  --c-dark-line:#6B7589;
+  --c-on-dark:#F5F7FB;
+  --c-on-dark-muted:#AEB6C4;
+  --c-on-dark-accent:#8FB5FF;
+  /* estados */
+  --c-success:#0F7050;
+  --c-error:#C4281C;
+  /* tipografía */
+  --font-display:'Lexend', 'Figtree', system-ui, sans-serif;
+  --font-ui:'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* espaciado base 4 */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px;
+  --s-section:clamp(64px, 8vw, 96px);
+  --gutter:clamp(16px, 4vw, 24px);
+  /* radios */
+  --r-sm:8px; --r-md:12px; --r-lg:20px; --r-pill:999px;
+  /* movimiento */
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --t-fast:150ms; --t-med:220ms;
+  --focus:var(--c-action);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--c-bg);color:var(--c-ink);font-family:var(--font-ui);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+a{color:var(--c-action)}
+a:hover{color:var(--c-action-hover)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.th-dark,.th-contact{--focus:var(--c-on-dark-accent)}
+[id]{scroll-margin-top:88px}
+button{font:inherit}
+.th-skip{position:absolute;left:var(--s-4);top:-60px;z-index:50;background:var(--c-ink);color:var(--c-on-dark);padding:var(--s-3) var(--s-4);border-radius:var(--r-md);text-decoration:none;font-weight:600}
+.th-skip:focus{top:var(--s-3);color:var(--c-on-dark)}
+
+/* ============ LAYOUT ============ */
+.th-root{font-family:var(--font-ui);color:var(--c-ink);background:var(--c-bg);min-height:100vh}
+.th-wrap{max-width:1200px;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.th-section{padding-top:var(--s-section);padding-bottom:var(--s-section)}
+.th-band{background:var(--c-surface);border-top:1px solid var(--c-border);border-bottom:1px solid var(--c-border)}
+.th-stack{display:flex;flex-direction:column}
+.th-head{display:flex;flex-direction:column;gap:var(--s-3);max-width:640px}
+
+/* ============ TIPOGRAFÍA · escala 12/14/16/18/22/28/40/56 ============ */
+.th-display,.th-h1,.th-h2,.th-h3{font-family:var(--font-display);font-weight:600;margin:0;font-optical-sizing:auto;text-wrap:balance;color:inherit}
+.th-display{font-size:clamp(2.25rem, 1.6rem + 3vw, 3.25rem);line-height:1.08;letter-spacing:-.03em}
+.th-h1{font-size:clamp(2rem, 1.6rem + 1.6vw, 2.5rem);line-height:1.08;letter-spacing:-.015em}
+.th-h2{font-size:clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);line-height:1.12;letter-spacing:-.015em}
+.th-h3{font-size:1.375rem;line-height:1.2}
+.th-lead{margin:0;font-size:1.125rem;line-height:1.6;color:var(--c-ink-2);max-width:34em}
+.th-body{margin:0;font-size:1rem;line-height:1.6;color:var(--c-ink-2)}
+.th-small{font-size:.875rem;line-height:1.5;color:var(--c-muted)}
+.th-label{font-weight:600;font-size:1rem}
+.th-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted)}
+.th-eyebrow::before{content:"";width:24px;height:2px;border-radius:2px;background:var(--c-action)}
+.th-dark .th-eyebrow,.th-contact .th-eyebrow{color:var(--c-on-dark-accent)}
+.th-num{font-family:var(--font-display);font-weight:600;font-size:1.75rem;line-height:1.1}
+.th-note{display:block;font-size:.75rem;line-height:1.5;color:var(--c-muted);font-style:italic}
+.th-dark .th-note{color:var(--c-on-dark-muted)}
+
+/* ============ BOTONES ============ */
+.th-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);min-height:48px;padding:12px 24px;border-radius:var(--r-pill);border:1px solid transparent;font:inherit;font-weight:600;font-size:1rem;line-height:1.2;text-decoration:none;text-align:center;cursor:pointer;transition:background-color var(--t-fast) var(--ease),border-color var(--t-fast) var(--ease),color var(--t-fast) var(--ease),transform 100ms var(--ease)}
+.th-btn:active{transform:translateY(1px)}
+.th-btn-action{background:var(--c-action);color:#FFFFFF}
+.th-btn-action:hover{background:var(--c-action-hover);color:#FFFFFF}
+.th-btn-ghost{background:var(--c-surface);color:var(--c-ink);border-color:var(--c-border-strong)}
+.th-btn-ghost:hover{background:var(--c-sunken);color:var(--c-ink)}
+.th-btn-ghost-dark{background:transparent;color:var(--c-on-dark);border-color:var(--c-dark-line)}
+.th-btn-ghost-dark:hover{background:var(--c-dark-2);color:var(--c-on-dark)}
+.th-btn-sm{min-height:44px;padding:10px 18px;font-size:.9375rem}
+.th-btn-block{width:100%}
+.th-link{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;font-weight:600;text-decoration:none}
+.th-link-dark{color:var(--c-on-dark-accent)}
+.th-link-dark:hover{color:var(--c-on-dark)}
+
+/* chips (dormitorios, modelos, filtros) */
+.th-chips{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.th-chip{min-height:44px;padding:10px 18px;border-radius:var(--r-pill);border:1px solid var(--c-border-strong);background:var(--c-surface);color:var(--c-ink);font:inherit;font-weight:600;font-size:.9375rem;cursor:pointer;transition:background-color var(--t-fast) var(--ease),border-color var(--t-fast) var(--ease),color var(--t-fast) var(--ease)}
+.th-chip:hover{border-color:var(--c-primary)}
+.th-chip[data-on="1"]{background:var(--c-primary);border-color:var(--c-primary);color:#FFFFFF}
+.th-chip-dark{background:transparent;border-color:var(--c-dark-line);color:var(--c-on-dark)}
+.th-chip-dark:hover{border-color:var(--c-on-dark-muted)}
+.th-chip-dark[data-on="1"]{background:var(--c-on-dark);border-color:var(--c-on-dark);color:var(--c-dark)}
+.th-chip-sq{border-radius:var(--r-md);border-width:2px;border-color:var(--c-border);font-size:.875rem;padding:8px 14px}
+.th-chip-sq[data-on="1"]{background:var(--c-primary-tint);border-color:var(--c-primary);color:var(--c-ink)}
+
+/* control segmentado (pestañas) */
+.th-seg{display:flex;flex-wrap:wrap;gap:var(--s-1);padding:var(--s-1);background:var(--c-sunken);border-radius:var(--r-pill)}
+.th-seg-btn{flex:1;min-height:44px;padding:10px 20px;border:none;border-radius:var(--r-pill);background:transparent;color:var(--c-ink-2);font:inherit;font-weight:600;font-size:.9375rem;cursor:pointer;transition:background-color var(--t-fast) var(--ease),color var(--t-fast) var(--ease)}
+.th-seg-btn:hover{color:var(--c-ink)}
+.th-seg-btn[data-on="1"]{background:var(--c-primary);color:#FFFFFF}
+
+/* ============ HEADER ============ */
+.th-header{position:sticky;top:0;z-index:30;background:rgba(245,247,251,.94);-webkit-backdrop-filter:saturate(1.2) blur(8px);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--c-border)}
+.th-header-row{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);padding-top:var(--s-3);padding-bottom:var(--s-3)}
+.th-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--c-ink);min-height:44px}
+.th-logo:hover{color:var(--c-ink)}
+.th-logo span{font-family:var(--font-display);font-weight:700;font-size:1.375rem;letter-spacing:-.03em;color:var(--c-ink)}
+.th-logo b,.th-footer-logo b{font-weight:700;color:var(--c-action)}
+.th-footer-logo{font-family:var(--font-display);font-weight:700;font-size:1.25rem;letter-spacing:-.03em;color:#FFFFFF}
+.th-footer-logo b{color:var(--c-on-dark-accent)}
+.th-navlinks{display:flex;gap:var(--s-6);font-size:.9375rem;font-weight:500}
+.th-navlinks a{color:var(--c-ink-2);text-decoration:none;padding:10px 0;transition:color var(--t-fast) var(--ease)}
+.th-navlinks a:hover{color:var(--c-ink)}
+.th-header-actions{display:flex;align-items:center;gap:var(--s-2)}
+.th-menubtn{display:none;width:44px;height:44px;align-items:center;justify-content:center;border:1px solid var(--c-border-strong);border-radius:var(--r-pill);background:var(--c-surface);color:var(--c-ink);cursor:pointer}
+.th-mnav{border-top:1px solid var(--c-border);background:var(--c-bg)}
+.th-mnav a{display:flex;align-items:center;min-height:52px;font-size:1.0625rem;font-weight:600;color:var(--c-ink);text-decoration:none;border-bottom:1px solid var(--c-border)}
+.th-mnav a:last-child{border-bottom:none}
+@media (max-width: 860px){
+  .th-navlinks{display:none}
+  .th-menubtn{display:inline-flex}
+}
+@media (min-width: 861px){ .th-mnav{display:none} }
+
+/* ============ HERO ============ */
+.th-hero{display:flex;flex-wrap:wrap;gap:var(--s-7);align-items:center;padding-top:clamp(40px, 6vw, 72px);padding-bottom:var(--s-section)}
+.th-hero-copy{flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:var(--s-5)}
+.th-hero-art{flex:1 1 420px;min-width:0}
+.th-pill{align-self:flex-start;background:var(--c-blue-tint);color:var(--c-blue-ink);font-weight:600;font-size:.875rem;padding:8px 14px;border-radius:var(--r-pill)}
+.th-stats{display:flex;flex-wrap:wrap;gap:var(--s-6);padding-top:var(--s-2)}
+.th-stat{display:flex;flex-direction:column;gap:2px}
+.th-art{background:#DCE7FF;border-radius:var(--r-lg);height:clamp(300px, 38vw, 460px);position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.th-art-tag{position:absolute;top:var(--s-5);left:var(--s-5);background:rgba(255,255,255,.16);color:#FFFFFF;font-size:.75rem;padding:6px 12px;border-radius:var(--r-pill)}
+
+/* ============ VALORES / PROCESO ============ */
+.th-grid-4{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:var(--s-5)}
+.th-value{background:var(--c-bg);border-radius:var(--r-lg);padding:var(--s-6) var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)}
+.th-value-n{font-family:var(--font-display);font-weight:700;font-size:1.125rem;color:var(--c-action)}
+.th-step-p{display:flex;flex-direction:column;gap:var(--s-3);padding-top:var(--s-5);border-top:3px solid var(--c-action)}
+.th-step-p .th-small{font-weight:700;color:var(--c-blue-ink);font-size:.875rem}
+
+/* ============ PANELES ============ */
+.th-panel{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:clamp(20px, 3vw, 32px)}
+.th-dark{background:var(--c-dark);color:var(--c-on-dark);border-radius:var(--r-lg);padding:clamp(20px, 3vw, 32px)}
+.th-dark .th-muted{color:var(--c-on-dark-muted)}
+.th-tiles{display:grid;grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));gap:var(--s-3)}
+.th-tile{background:var(--c-dark-2);border-radius:var(--r-md);padding:var(--s-3) 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.th-tile-k{font-size:.75rem;color:var(--c-on-dark-muted);letter-spacing:.01em}
+.th-tile-v{font-size:1.125rem;font-weight:700}
+.th-tile-s{font-size:.75rem;color:var(--c-on-dark-muted)}
+.th-price-big{font-family:var(--font-display);font-weight:600;font-size:1.75rem;line-height:1.1;color:var(--c-on-dark-accent)}
+
+/* ============ CONFIGURADOR ============ */
+.th-cfg{display:flex;flex-wrap:wrap;gap:var(--s-5);align-items:stretch}
+.th-cfg-filters{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:var(--s-6)}
+.th-cfg-ficha{flex:1.4 1 480px;min-width:0;display:flex;flex-direction:column;gap:var(--s-5)}
+.th-field{display:flex;flex-direction:column;gap:10px}
+.th-field-head{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-3)}
+.th-field-val{font-family:var(--font-display);font-weight:600;font-size:1.75rem;color:var(--c-action);line-height:1}
+.th-range{width:100%;accent-color:var(--c-primary);height:28px;cursor:pointer;margin:0}
+.th-range-ends{display:flex;justify-content:space-between;font-size:.75rem;color:var(--c-muted)}
+.th-match{margin-top:auto;background:var(--c-blue-tint);border-radius:var(--r-md);padding:14px 18px;font-size:.9375rem;color:var(--c-blue-ink);font-weight:600}
+.th-plan-mini{background:var(--c-dark-2);border-radius:var(--r-md);padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)}
+.th-plan-mini-row{display:flex;align-items:center;gap:var(--s-2)}
+.th-plan-mini-box{border:2px solid #8FB5FF;border-radius:6px;background:#1E2A44;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;font-size:.9375rem}
+.th-dark-caption{font-size:.75rem;color:var(--c-on-dark-muted)}
+
+/* ============ CATÁLOGO ============ */
+.th-catalog{display:grid;grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));gap:var(--s-5)}
+.th-card{text-align:left;font:inherit;color:var(--c-ink);cursor:pointer;background:var(--c-bg);border-radius:var(--r-lg);padding:0;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--c-border);transition:transform var(--t-med) var(--ease),box-shadow var(--t-med) var(--ease),border-color var(--t-fast) var(--ease)}
+.th-card:hover{transform:translateY(-3px);box-shadow:0 12px 24px -16px rgba(35,32,27,.45)}
+.th-card[data-on="1"]{border:2px solid var(--c-primary)}
+.th-card-img{height:150px;width:100%;display:flex;align-items:flex-end;justify-content:center;position:relative;transition:opacity var(--t-med) var(--ease),filter var(--t-med) var(--ease)}
+.th-card[data-match="0"] .th-card-img svg{opacity:.5;filter:saturate(.3)}
+.th-badge{position:absolute;top:var(--s-3);left:var(--s-3);background:#FFFFFF;color:var(--c-action);font-size:.75rem;font-weight:700;padding:5px 10px;border-radius:var(--r-pill)}
+.th-card-body{padding:var(--s-5) 20px;display:flex;flex-direction:column;gap:6px;width:100%}
+.th-card-title{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-2)}
+.th-card-cta{font-size:.875rem;font-weight:700;color:var(--c-action);padding-top:6px}
+.th-empty{background:var(--c-bg);border:1px dashed var(--c-border-strong);border-radius:var(--r-lg);padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3);align-items:flex-start}
+
+/* ============ PERSONALIZACIÓN ============ */
+.th-detail{padding-top:var(--s-6);padding-bottom:var(--s-section);display:flex;flex-direction:column;gap:var(--s-6)}
+.th-detail-top{display:flex;flex-wrap:wrap;gap:var(--s-5);justify-content:space-between;align-items:flex-end}
+.th-detail-grid{display:grid;grid-template-columns:minmax(0, 1.1fr) minmax(0, 1fr);gap:var(--s-6);align-items:start}
+.th-detail-left{position:sticky;top:88px;display:flex;flex-direction:column;gap:var(--s-4)}
+.th-detail-right{display:flex;flex-direction:column;gap:var(--s-4)}
+.th-preview{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-4)}
+.th-preview .th-seg{align-self:flex-start}
+.th-caption{font-size:.75rem;color:var(--c-muted);padding:0 4px}
+.th-canvas{background:var(--c-bg);border-radius:var(--r-md);padding:var(--s-4)}
+.th-plan{display:flex;align-items:flex-start;gap:10px}
+.th-plan-area{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.th-plan-row{display:flex;align-items:flex-start;width:100%}
+.th-house{display:flex;border:3px solid var(--c-ink);flex-shrink:0;transition:width var(--t-med) var(--ease)}
+.th-room{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px;text-align:center;flex-shrink:0;overflow:hidden;min-width:0}
+.th-room b{font-size:.75rem;font-weight:700;color:var(--c-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.th-room span{font-size:.75rem;color:var(--c-ink-2)}
+.th-deck{background:#E8D3B9;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;font-size:.75rem;font-weight:700;color:#5A3A22}
+.th-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8125rem;color:var(--c-ink-2)}
+.th-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--c-ink);vertical-align:-1px;margin-right:6px}
+
+/* resumen compacto (sticky, escritorio) */
+.th-compact{display:flex;flex-direction:column;gap:var(--s-3);padding:var(--s-4) 20px}
+.th-compact-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-3)}
+.th-progress{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.th-progress a{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:700;text-decoration:none;border:1px solid var(--c-dark-line);color:var(--c-on-dark-muted);transition:background-color var(--t-fast) var(--ease),color var(--t-fast) var(--ease)}
+.th-progress a:hover{color:var(--c-on-dark);border-color:var(--c-on-dark-muted)}
+.th-progress a[data-on="1"]{background:var(--c-on-dark-accent);border-color:var(--c-on-dark-accent);color:var(--c-dark)}
+
+/* pasos de opciones */
+.th-step{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:var(--s-5);display:flex;flex-direction:column;gap:14px}
+.th-step-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:var(--s-2)}
+.th-step-head h2{margin:0;font-family:var(--font-ui);font-size:1.125rem;font-weight:700}
+.th-opts{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:10px}
+.th-opts-1{grid-template-columns:minmax(0, 1fr)}
+.th-opt{display:flex;align-items:center;gap:var(--s-3);width:100%;text-align:left;font:inherit;color:var(--c-ink);padding:14px 16px;min-height:64px;border-radius:var(--r-md);border:2px solid var(--c-border);background:var(--c-surface);cursor:pointer;transition:border-color var(--t-fast) var(--ease),background-color var(--t-fast) var(--ease)}
+.th-opt:hover:not(:disabled){border-color:var(--c-border-strong)}
+.th-opt[data-on="1"]{border-color:var(--c-primary);background:var(--c-primary-tint)}
+.th-opt[data-on="1"]:hover{border-color:var(--c-primary)}
+.th-opt:disabled{cursor:not-allowed;background:var(--c-sunken);color:var(--c-muted)}
+.th-opt[data-child="1"]{margin-left:28px;width:calc(100% - 28px)}
+.th-opt[data-new="1"]{animation:th-in var(--t-med) var(--ease)}
+.th-ind{width:22px;height:22px;flex-shrink:0;display:grid;place-items:center;border:2px solid var(--c-border-strong);border-radius:50%;background:#FFFFFF;transition:background-color var(--t-fast) var(--ease),border-color var(--t-fast) var(--ease)}
+.th-ind::after{content:"";width:8px;height:8px;border-radius:50%;background:#FFFFFF;transform:scale(0);transition:transform var(--t-fast) var(--ease)}
+.th-ind svg{display:none}
+.th-opt[data-kind="check"] .th-ind{border-radius:6px}
+.th-opt[data-kind="check"] .th-ind::after{display:none}
+.th-opt[data-kind="check"] .th-ind svg{display:block;opacity:0;transition:opacity var(--t-fast) var(--ease)}
+.th-opt[data-on="1"] .th-ind{background:var(--c-primary);border-color:var(--c-primary)}
+.th-opt[data-on="1"] .th-ind::after{transform:scale(1)}
+.th-opt[data-on="1"] .th-ind svg{opacity:1}
+.th-opt:disabled .th-ind{background:var(--c-sunken)}
+.th-swatch{width:28px;height:28px;border-radius:50%;flex-shrink:0;border:1px solid var(--c-border-strong)}
+.th-opt-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.th-opt-title{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:600;font-size:.9375rem}
+.th-opt-sub{font-size:.8125rem;color:var(--c-muted)}
+.th-price{font-weight:700;font-size:.875rem;white-space:nowrap;color:var(--c-ink)}
+.th-price[data-price="incl"]{font-weight:500;color:var(--c-muted)}
+.th-price[data-price="neg"]{color:var(--c-success)}
+.th-new{background:var(--c-blue-tint);color:var(--c-blue-ink);font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:var(--r-pill)}
+@keyframes th-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* resumen completo */
+.th-lines{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--c-dark-line);padding-top:var(--s-4)}
+.th-line{display:flex;justify-content:space-between;gap:var(--s-3);font-size:.875rem}
+.th-line span:first-child{color:var(--c-on-dark-muted)}
+.th-line span:last-child{font-weight:600;white-space:nowrap}
+.th-line [data-price="neg"]{color:#9FE0B5}
+.th-total{border-top:1px solid var(--c-dark-line);padding-top:var(--s-4);display:flex;flex-wrap:wrap;gap:var(--s-2);justify-content:space-between;align-items:baseline}
+
+/* barra fija móvil */
+.th-mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--c-dark);color:var(--c-on-dark);padding:12px var(--gutter) calc(12px + env(safe-area-inset-bottom));align-items:center;justify-content:space-between;gap:var(--s-3);box-shadow:0 -8px 24px -12px rgba(0,0,0,.4);--focus:var(--c-on-dark-accent)}
+.th-mbar-total{display:flex;flex-direction:column;gap:0;min-width:0}
+.th-mbar-total a{font-size:.75rem;color:var(--c-on-dark-muted)}
+.th-mbar-total strong{font-family:var(--font-display);font-weight:600;font-size:1.375rem;color:var(--c-on-dark-accent);line-height:1.2}
+
+/* toast */
+.th-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:40;width:min(560px, calc(100% - 32px));background:var(--c-ink);color:var(--c-on-dark);border-radius:var(--r-md);padding:12px 12px 12px 18px;display:flex;align-items:center;gap:var(--s-3);box-shadow:0 16px 32px -16px rgba(0,0,0,.5);animation:th-toast var(--t-med) var(--ease);--focus:var(--c-on-dark-accent)}
+.th-toast p{margin:0;flex:1;font-size:.9375rem}
+.th-toast button{min-height:44px;padding:8px 14px;border-radius:var(--r-pill);border:1px solid var(--c-dark-line);background:transparent;color:var(--c-on-dark-accent);font-weight:700;cursor:pointer}
+.th-toast button:hover{background:var(--c-dark-2)}
+@keyframes th-toast{from{opacity:0;transform:translate(-50%, 8px)}to{opacity:1;transform:translate(-50%, 0)}}
+
+@media (max-width: 959px){
+  .th-detail-grid{grid-template-columns:minmax(0, 1fr)}
+  .th-detail-left{position:static}
+  .th-compact{display:none}
+  .th-mbar{display:flex}
+  .th-root[data-view="detail"]{padding-bottom:88px}
+  .th-toast{bottom:96px}
+}
+@media (max-width: 520px){
+  .th-opt[data-child="1"]{margin-left:16px;width:calc(100% - 16px)}
+  .th-opts{grid-template-columns:minmax(0, 1fr)}
+}
+
+/* ============ CONTACTO ============ */
+.th-contact{background:var(--c-action);color:#FFFFFF;--focus:#FFFFFF}
+.th-contact .th-eyebrow{color:#DCE7FF}
+.th-contact .th-eyebrow::before{background:#FFFFFF}
+.th-contact-grid{display:flex;flex-wrap:wrap;gap:var(--s-7)}
+.th-contact-copy{flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:20px}
+.th-contact-copy .th-lead{color:#E3ECFF}
+.th-contact-list{display:flex;flex-direction:column;gap:14px;font-size:1rem;color:#E3ECFF}
+.th-quote{background:rgba(0,0,0,.22);border-radius:var(--r-md);padding:18px;display:flex;flex-direction:column;gap:6px}
+.th-form{flex:1.2 1 420px;min-width:0;background:var(--c-surface);color:var(--c-ink);border-radius:var(--r-lg);padding:clamp(20px, 3vw, 32px);display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:18px;--focus:var(--c-action);align-content:start}
+.th-form-full{grid-column:1 / -1}
+.th-input{width:100%;padding:14px 16px;border:1px solid var(--c-border-strong);border-radius:var(--r-md);font:inherit;font-size:16px;background:#FFFFFF;color:var(--c-ink);transition:border-color var(--t-fast) var(--ease)}
+.th-input::placeholder{color:#6B7383}
+.th-input:hover{border-color:var(--c-ink-2)}
+.th-input:focus{outline:3px solid var(--c-action);outline-offset:1px;border-color:var(--c-action)}
+.th-input[aria-invalid="true"]{border-color:var(--c-error);border-width:2px}
+.th-err{display:flex;gap:6px;align-items:flex-start;font-size:.875rem;color:var(--c-error);font-weight:600}
+.th-hint{font-size:.8125rem;color:var(--c-muted)}
+.th-sent{display:flex;flex-direction:column;gap:var(--s-3);align-items:flex-start}
+
+/* ============ FOOTER ============ */
+.th-footer{background:var(--c-dark);color:var(--c-on-dark-muted);--focus:var(--c-on-dark-accent)}
+.th-footer-row{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;font-size:.875rem;padding-top:40px;padding-bottom:40px}
+.th-footer a{color:var(--c-on-dark-muted);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.th-footer a:hover{color:var(--c-on-dark)}
+
+/* zona segura del teléfono */
+.th-header{top:env(safe-area-inset-top, 0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:31;background:#F5F7FB}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+<div class="th-root" data-view="{{viewAttr}}">
+<a class="th-skip" href="#contenido">Saltar al contenido</a>
+
+<!-- NAV -->
+<header class="th-header">
+<div class="th-wrap th-header-row">
+<a href="#inicio" onClick="{{navTo.inicio}}" class="th-logo" aria-label="Tiny House, ir al inicio">
+<svg width="40" height="26" viewBox="0 0 44 28" fill="none" aria-hidden="true"><rect x="30" y="4" width="5" height="10" rx="1" fill="#0B0D12"></rect><path d="M4 21 22 7l18 14" stroke="#0B0D12" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path><rect x="17.2" y="13" width="4.4" height="4.4" rx="1.1" fill="#0552E6"></rect><rect x="22.4" y="13" width="4.4" height="4.4" rx="1.1" fill="#0552E6"></rect><rect x="17.2" y="18.2" width="4.4" height="4.4" rx="1.1" fill="#0552E6"></rect><rect x="22.4" y="18.2" width="4.4" height="4.4" rx="1.1" fill="#0552E6"></rect></svg>
+<span><b>Tiny</b>House</span>
+</a>
+<nav class="th-navlinks" aria-label="Principal">
+<a href="#nosotros" onClick="{{navTo.nosotros}}">Nosotros</a>
+<a href="#configurador" onClick="{{navTo.configurador}}">Elige tu Tiny</a>
+<a href="#modelos" onClick="{{navTo.modelos}}">Modelos</a>
+<a href="#proceso" onClick="{{navTo.proceso}}">Proceso</a>
+<a href="#contacto" onClick="{{navTo.contacto}}">Contacto</a>
+</nav>
+<div class="th-header-actions">
+<a href="#contacto" onClick="{{headerQuote}}" class="th-btn th-btn-action th-btn-sm">Cotizar</a>
+<button type="button" class="th-menubtn" aria-expanded="{{menuExpanded}}" aria-controls="th-mnav" aria-label="{{menuLabel}}" onClick="{{toggleMenu}}">
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></sc-if>
+<sc-if value="{{menuClosed}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></sc-if>
+</button>
+</div>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<nav id="th-mnav" class="th-mnav" aria-label="Menú">
+<div class="th-wrap">
+<a href="#nosotros" onClick="{{navTo.nosotros}}">Nosotros</a>
+<a href="#configurador" onClick="{{navTo.configurador}}">Elige tu Tiny</a>
+<a href="#modelos" onClick="{{navTo.modelos}}">Modelos</a>
+<a href="#proceso" onClick="{{navTo.proceso}}">Proceso</a>
+<a href="#contacto" onClick="{{navTo.contacto}}">Contacto</a>
+</div>
+</nav>
+</sc-if>
+</header>
+
+<main id="contenido">
+<sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+<div>
+<!-- HERO -->
+<section id="inicio" class="th-wrap th-hero">
+<div class="th-hero-copy">
+<span class="th-pill">Casas modulares · Diseño y construcción en Chile</span>
+<h1 class="th-display">Tu casa pequeña, a la medida de tu terreno y tu vida.</h1>
+<p class="th-lead">Diseñamos y construimos Tiny Houses eficientes, cálidas y listas para habitar. Elige tu modelo por metros cuadrados o por las medidas de tu espacio.</p>
+<div class="th-chips" style="gap: 12px">
+<a href="#configurador" onClick="{{navTo.configurador}}" class="th-btn th-btn-action">Elige tu Tiny</a>
+<a href="#modelos" onClick="{{navTo.modelos}}" class="th-btn th-btn-ghost">Ver modelos</a>
+</div>
+<div class="th-stats">
+<div class="th-stat"><span class="th-num">15–56 m²</span><span class="th-small">5 modelos base</span></div>
+<div class="th-stat"><span class="th-num">12 semanas</span><span class="th-small">Plazo de fabricación</span></div>
+<div class="th-stat"><span class="th-num">100%</span><span class="th-small">Personalizable</span></div>
+</div>
+</div>
+<div class="th-hero-art">
+<div class="th-art">
+<svg width="100%" height="100%" viewBox="0 0 480 360" preserveAspectRatio="xMidYMax slice" fill="none" aria-hidden="true" style="display: block">
+<ellipse cx="96" cy="70" rx="44" ry="13" fill="#FFFFFF" opacity=".85"></ellipse>
+<ellipse cx="380" cy="52" rx="52" ry="14" fill="#FFFFFF" opacity=".85"></ellipse>
+<path d="M0 262 C110 222 210 250 300 236 C380 224 430 246 480 236 V360 H0Z" fill="#C3D4F6"></path>
+<path d="M0 312 C120 296 220 306 300 300 C380 294 430 304 480 298 V360 H0Z" fill="#D7DEC9"></path>
+<rect x="318" y="96" width="24" height="56" rx="3" fill="#0B0D12"></rect>
+<path d="M112 306 V178 L240 104 L368 178 V306Z" fill="#FFFFFF"></path>
+<path d="M112 306 V250 H368 V306Z" fill="#C79A6B"></path>
+<path d="M112 250 H368" stroke="#0B0D12" stroke-opacity=".15" stroke-width="2"></path>
+<path d="M92 190 L240 100 L388 190" stroke="#0B0D12" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
+<rect x="146" y="200" width="30" height="30" rx="6" fill="#0552E6"></rect>
+<rect x="182" y="200" width="30" height="30" rx="6" fill="#0552E6"></rect>
+<rect x="146" y="236" width="30" height="30" rx="6" fill="#0552E6"></rect>
+<rect x="182" y="236" width="30" height="30" rx="6" fill="#0552E6"></rect>
+<rect x="262" y="206" width="58" height="100" rx="6" fill="#0B0D12"></rect>
+<circle cx="308" cy="258" r="3.5" fill="#FFFFFF"></circle>
+<path d="M52 314 V262" stroke="#2A3342" stroke-width="5" stroke-linecap="round"></path>
+<path d="M52 196 L26 268 H78Z" fill="#2A3342"></path>
+<path d="M430 312 V270" stroke="#2A3342" stroke-width="5" stroke-linecap="round"></path>
+<path d="M430 220 L408 276 H452Z" fill="#2A3342"></path>
+</svg>
+</div>
+</div>
+</section>
+
+<!-- NOSOTROS / VALORES -->
+<section id="nosotros" class="th-band">
+<div class="th-wrap th-section th-stack" style="gap: 48px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-end; justify-content: space-between">
+<div class="th-head" style="max-width: 560px">
+<span class="th-eyebrow">Quiénes somos</span>
+<h2 class="th-h2">Construimos espacios pequeños con grandes ideas.</h2>
+</div>
+<p class="th-body" style="max-width: 480px; font-size: 1.0625rem">Somos un equipo de diseñadores y constructores que cree en vivir mejor con menos. Desde nuestro taller en Santiago fabricamos casas modulares y las instalamos de la Región Metropolitana al sur de Chile.</p>
+</div>
+<div class="th-grid-4">
+<div class="th-value"><span class="th-value-n">01</span><h3 class="th-h3">Calidad</h3><p class="th-body" style="font-size: .9375rem">Materiales certificados y aislación térmica pensada para el clima de cada zona.</p></div>
+<div class="th-value"><span class="th-value-n">02</span><h3 class="th-h3">Personalización</h3><p class="th-body" style="font-size: .9375rem">Terminaciones, distribución y colores adaptados a lo que necesitas.</p></div>
+<div class="th-value"><span class="th-value-n">03</span><h3 class="th-h3">Eficiencia</h3><p class="th-body" style="font-size: .9375rem">Construcción modular: menos plazo, menos residuos y costos claros desde el inicio.</p></div>
+<div class="th-value"><span class="th-value-n">04</span><h3 class="th-h3">Acompañamiento</h3><p class="th-body" style="font-size: .9375rem">Te guiamos desde la primera idea hasta la instalación en tu terreno.</p></div>
+</div>
+</div>
+</section>
+
+<!-- CONFIGURADOR -->
+<section id="configurador" class="th-wrap th-section th-stack" style="gap: 36px">
+<div class="th-head">
+<span class="th-eyebrow">Configurador</span>
+<h2 class="th-h2">Encuentra la Tiny que calza contigo</h2>
+<p class="th-body" style="font-size: 1.0625rem">Busca por la superficie que necesitas o por el espacio disponible en tu terreno. Te mostramos al tiro los modelos que calzan.</p>
+</div>
+
+<div class="th-cfg">
+<!-- Panel de filtros -->
+<div class="th-panel th-cfg-filters">
+<div role="tablist" aria-label="Forma de búsqueda" class="th-seg">
+<button type="button" role="tab" id="tab-m2" aria-controls="th-filtros" aria-selected="{{ariaM2}}" data-on="{{onM2}}" onClick="{{setM2}}" class="th-seg-btn">Por m²</button>
+<button type="button" role="tab" id="tab-med" aria-controls="th-filtros" aria-selected="{{ariaMed}}" data-on="{{onMed}}" onClick="{{setMed}}" class="th-seg-btn">Por medidas</button>
+</div>
+
+<div id="th-filtros" role="tabpanel" aria-labelledby="{{filtrosLabelledBy}}" class="th-stack" style="gap: 24px">
+<sc-if value="{{isM2}}" hint-placeholder-val="{{ true }}">
+<div class="th-field">
+<div class="th-field-head"><label for="th-m2" class="th-label">Superficie que buscas</label><span class="th-field-val">{{targetLabel}}</span></div>
+<input id="th-m2" class="th-range" type="range" min="12" max="60" step="1" value="{{target}}" aria-valuetext="{{targetLabel}}" onChange="{{onTarget}}">
+<div class="th-range-ends"><span>12 m²</span><span>60 m²</span></div>
+<p class="th-small" style="margin: 0">Mostramos los modelos que están a ±8 m² de lo que buscas.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{isMed}}" hint-placeholder-val="{{ false }}">
+<div class="th-stack" style="gap: 24px">
+<div class="th-field">
+<div class="th-field-head"><label for="th-largo" class="th-label">Largo disponible</label><span class="th-field-val">{{maxLLabel}}</span></div>
+<input id="th-largo" class="th-range" type="range" min="5" max="14" step="0.5" value="{{maxL}}" aria-valuetext="{{maxLLabel}}" onChange="{{onMaxL}}">
+<div class="th-range-ends"><span>5 m</span><span>14 m</span></div>
+</div>
+<div class="th-field">
+<div class="th-field-head"><label for="th-ancho" class="th-label">Ancho disponible</label><span class="th-field-val">{{maxALabel}}</span></div>
+<input id="th-ancho" class="th-range" type="range" min="2.5" max="6" step="0.1" value="{{maxA}}" aria-valuetext="{{maxALabel}}" onChange="{{onMaxA}}">
+<div class="th-range-ends"><span>2,5 m</span><span>6,0 m</span></div>
+</div>
+<div class="th-field">
+<div class="th-field-head"><label for="th-alto" class="th-label">Alto máximo permitido</label><span class="th-field-val">{{maxHLabel}}</span></div>
+<input id="th-alto" class="th-range" type="range" min="3.8" max="5" step="0.1" value="{{maxH}}" aria-valuetext="{{maxHLabel}}" onChange="{{onMaxH}}">
+<div class="th-range-ends"><span>3,8 m</span><span>5,0 m</span></div>
+</div>
+</div>
+</sc-if>
+</div>
+
+<div class="th-field" role="group" aria-labelledby="th-dorm-label">
+<span id="th-dorm-label" class="th-label">Dormitorios</span>
+<div class="th-chips">
+<sc-for list="{{dorms}}" as="dp" hint-placeholder-count="3">
+<button type="button" class="th-chip" aria-pressed="{{dp.aria}}" data-on="{{dp.on}}" onClick="{{dp.pick}}">{{dp.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div class="th-match" aria-live="polite">{{matchText}}</div>
+</div>
+
+<!-- Ficha del modelo seleccionado -->
+<div class="th-dark th-cfg-ficha">
+<sc-if value="{{hasSel}}" hint-placeholder-val="{{ true }}">
+<div class="th-stack" style="gap: 24px">
+<sc-if value="{{multiMatch}}" hint-placeholder-val="{{ true }}">
+<div class="th-stack" style="gap: 8px">
+<span class="th-dark-caption">Modelos que calzan con tu búsqueda</span>
+<div class="th-chips" role="group" aria-label="Modelos que calzan">
+<sc-for list="{{matchedPills}}" as="mp" hint-placeholder-count="3">
+<button type="button" class="th-chip th-chip-dark" aria-pressed="{{mp.aria}}" data-on="{{mp.on}}" onClick="{{mp.pick}}">{{mp.label}}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-start">
+<div class="th-stack" style="gap: 6px">
+<span class="th-small th-muted" style="font-weight: 600">{{selBadge}}</span>
+<h3 class="th-h1" style="font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem)">Modelo {{sel.name}}</h3>
+<span class="th-muted">{{sel.tag}}</span>
+</div>
+<div class="th-stack" style="gap: 2px; text-align: right">
+<span class="th-dark-caption">Desde</span>
+<span class="th-price-big">{{sel.price}}</span>
+</div>
+</div>
+
+<div class="th-tiles">
+<div class="th-tile"><span class="th-tile-k">Superficie</span><span class="th-tile-v">{{sel.m2}} m²</span></div>
+<div class="th-tile"><span class="th-tile-k">Largo × ancho</span><span class="th-tile-v">{{sel.lxa}}</span></div>
+<div class="th-tile"><span class="th-tile-k">Alto</span><span class="th-tile-v">{{sel.hTxt}}</span></div>
+<div class="th-tile"><span class="th-tile-k">Distribución</span><span class="th-tile-v" style="font-size: 1rem">{{sel.db}}</span></div>
+</div>
+
+<div class="th-plan-mini">
+<span class="th-small th-muted" style="font-weight: 600">Planta a escala (vista superior)</span>
+<div class="th-stack" style="gap: 6px">
+<span class="th-dark-caption" style="width: {{planPct}}%; text-align: center">{{sel.lTxt}}</span>
+<div class="th-plan-mini-row">
+<div class="th-plan-mini-box" style="width: {{planPct}}%; aspect-ratio: {{planRatio}}">{{sel.m2}} m²</div>
+<span class="th-dark-caption" style="white-space: nowrap">{{sel.aTxt}}</span>
+</div>
+</div>
+<span class="th-note">Escala referencial.</span>
+</div>
+
+<div class="th-chips" style="gap: 12px">
+<button type="button" onClick="{{openSel}}" class="th-btn th-btn-action">Personalizar modelo {{sel.name}}</button>
+<a href="#contacto" onClick="{{navTo.contacto}}" class="th-btn th-btn-ghost-dark">Cotizar tal cual</a>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{noSel}}" hint-placeholder-val="{{ false }}">
+<div class="th-stack" style="flex: 1; gap: 14px; justify-content: center; align-items: flex-start; min-height: 360px">
+<h3 class="th-h1" style="font-size: clamp(1.5rem, 1.3rem + 1vw, 1.75rem)">Ningún modelo base calza exactamente</h3>
+<p class="th-body th-muted" style="max-width: 440px">{{emptyReason}}</p>
+<p class="th-body th-muted" style="max-width: 440px">Ajusta los filtros o cuéntanos tu caso: también diseñamos proyectos a medida.</p>
+<div class="th-chips" style="gap: 12px">
+<sc-if value="{{hasNear}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{showNear}}" class="th-btn th-btn-ghost-dark">Ver {{nearName}} de todas formas</button>
+</sc-if>
+<a href="#contacto" onClick="{{navTo.contacto}}" class="th-btn th-btn-action">Pedir proyecto a medida</a>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="modelos" class="th-band">
+<div class="th-wrap th-section th-stack" style="gap: 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: flex-end">
+<div class="th-head">
+<span class="th-eyebrow">Catálogo</span>
+<h2 class="th-h2">Nuestros modelos</h2>
+<span class="th-small">Toca un modelo para personalizarlo.</span>
+</div>
+<button type="button" class="th-chip" aria-pressed="{{ariaOnly}}" data-on="{{onOnly}}" onClick="{{toggleOnly}}">Solo los que calzan ({{matchCount}})</button>
+</div>
+<sc-if value="{{catalogEmpty}}" hint-placeholder-val="{{ false }}">
+<div class="th-empty">
+<h3 class="th-h3">Ningún modelo calza con tu búsqueda</h3>
+<p class="th-body">Ajusta los filtros del configurador o muestra todo el catálogo.</p>
+<div class="th-chips" style="gap: 12px">
+<a href="#configurador" class="th-btn th-btn-ghost th-btn-sm">Ajustar filtros</a>
+<button type="button" class="th-btn th-btn-ghost th-btn-sm" onClick="{{toggleOnly}}">Ver todos los modelos</button>
+</div>
+</div>
+</sc-if>
+<div class="th-catalog">
+<sc-for list="{{shownModels}}" as="m" hint-placeholder-count="5">
+<button type="button" class="th-card" onClick="{{m.open}}" data-on="{{m.onAttr}}" data-match="{{m.matchAttr}}">
+<div class="th-card-img" style="background: {{m.tone}}">
+<svg width="140" height="96" viewBox="0 0 140 96" fill="none" aria-hidden="true"><path d="M24 92V46L70 18l46 28v46Z" fill="#F4EFE6"></path><path d="M16 50 70 16l54 34" stroke="#0B0D12" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path><rect x="40" y="58" width="24" height="18" rx="3" fill="#BFD3FF"></rect><rect x="78" y="58" width="18" height="34" rx="3" fill="#C79A6B"></rect></svg>
+<sc-if value="{{m.matched}}" hint-placeholder-val="{{ true }}">
+<span class="th-badge">Calza contigo</span>
+</sc-if>
+</div>
+<div class="th-card-body">
+<div class="th-card-title"><span class="th-h3">{{m.name}}</span><span style="font-size: 1.125rem; font-weight: 700; color: var(--c-primary)">{{m.m2}} m²</span></div>
+<span class="th-small" style="color: var(--c-ink-2)">{{m.lxa}} · alto {{m.hTxt}}</span>
+<span class="th-small" style="color: var(--c-ink-2)">{{m.db}}</span>
+<span style="font-size: .9375rem; font-weight: 700">Desde {{m.price}}</span>
+<span class="th-card-cta">Personalizar →</span>
+</div>
+</button>
+</sc-for>
+</div>
+<span class="th-note">Precios y medidas referenciales. El valor final se confirma en la cotización.</span>
+</div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso" class="th-wrap th-section th-stack" style="gap: 40px">
+<div class="th-head">
+<span class="th-eyebrow">Cómo trabajamos</span>
+<h2 class="th-h2">De la idea a tu Tiny, en 4 pasos</h2>
+</div>
+<div class="th-grid-4">
+<div class="th-step-p"><span class="th-small">Paso 1</span><h3 class="th-h3">Elige y cotiza</h3><p class="th-body" style="font-size: .9375rem">Usa el configurador y envíanos tu modelo preferido.</p></div>
+<div class="th-step-p"><span class="th-small">Paso 2</span><h3 class="th-h3">Personaliza</h3><p class="th-body" style="font-size: .9375rem">Ajustamos distribución, terminaciones y extras contigo.</p></div>
+<div class="th-step-p"><span class="th-small">Paso 3</span><h3 class="th-h3">Fabricamos</h3><p class="th-body" style="font-size: .9375rem">Construimos en taller y te mostramos cada avance.</p></div>
+<div class="th-step-p"><span class="th-small">Paso 4</span><h3 class="th-h3">Instalamos</h3><p class="th-body" style="font-size: .9375rem">Trasladamos e instalamos tu Tiny en tu terreno, lista para vivir.</p></div>
+</div>
+</section>
+
+</div>
+</sc-if>
+
+<!-- DETALLE DEL MODELO -->
+<sc-if value="{{isDetail}}" hint-placeholder-val="{{ false }}">
+<section id="detalle" class="th-wrap th-detail">
+<div class="th-detail-top">
+<div class="th-stack" style="gap: 10px">
+<a href="#modelos" onClick="{{navTo.modelos}}" class="th-link" style="align-self: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>Volver a modelos</a>
+<span class="th-eyebrow">Personaliza tu Tiny</span>
+<h1 class="th-h1" style="font-size: clamp(2.25rem, 1.75rem + 2vw, 3rem)">Modelo {{dm.name}}</h1>
+<span class="th-body" style="font-size: 1.0625rem">{{dm.tag}} · base {{dm.m2}} m² · {{dm.lxa}}</span>
+</div>
+<div class="th-stack" style="gap: 8px">
+<span class="th-small" style="font-weight: 600">Cambiar modelo</span>
+<div class="th-chips" role="group" aria-label="Cambiar modelo">
+<sc-for list="{{modelPills}}" as="mp" hint-placeholder-count="5">
+<button type="button" class="th-chip" onClick="{{mp.pick}}" aria-pressed="{{mp.aria}}" data-on="{{mp.on}}">{{mp.label}}</button>
+</sc-for>
+</div>
+<span class="th-small">Tus opciones compatibles se mantienen.</span>
+</div>
+</div>
+
+<div class="th-detail-grid">
+<!-- Columna izquierda: vista previa fija -->
+<div class="th-detail-left">
+<div class="th-preview">
+<div role="tablist" aria-label="Vista previa" class="th-seg">
+<sc-for list="{{previewTabs}}" as="pt" hint-placeholder-count="3">
+<button type="button" role="tab" id="{{pt.id}}" aria-controls="th-preview-panel" aria-selected="{{pt.aria}}" data-on="{{pt.on}}" onClick="{{pt.pick}}" class="th-seg-btn">{{pt.label}}</button>
+</sc-for>
+</div>
+
+<div id="th-preview-panel" role="tabpanel" aria-labelledby="{{previewLabelledBy}}">
+<sc-if value="{{isRender}}" hint-placeholder-val="{{ true }}">
+<div class="th-stack" style="gap: 10px">
+<div class="th-canvas" style="padding: 0; overflow: hidden">
+<sc-if value="{{rd.isExt}}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 640 360" width="100%" role="img" aria-label="{{rd.aria}}" style="display: block">
+<defs>
+<pattern id="pat-v" width="12" height="12" patternUnits="userSpaceOnUse"><line x1="1" y1="0" x2="1" y2="12" stroke="#000000" stroke-opacity=".2" stroke-width="1.5"></line></pattern>
+<pattern id="pat-h" width="14" height="14" patternUnits="userSpaceOnUse"><line x1="0" y1="1" x2="14" y2="1" stroke="#000000" stroke-opacity=".16" stroke-width="1.5"></line></pattern>
+<pattern id="pat-vl" width="18" height="18" patternUnits="userSpaceOnUse"><line x1="1" y1="0" x2="1" y2="18" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="2"></line></pattern>
+</defs>
+<rect x="0" y="0" width="640" height="360" fill="#DCE7FF"></rect>
+<ellipse cx="120" cy="64" rx="46" ry="14" fill="#FFFFFF" opacity=".85"></ellipse>
+<ellipse cx="520" cy="48" rx="56" ry="15" fill="#FFFFFF" opacity=".85"></ellipse>
+<path d="M0 250 C120 205 220 235 330 215 C450 195 540 230 640 210 V360 H0Z" fill="#C3D4F6"></path>
+<rect x="0" y="300" width="640" height="60" fill="#D7DEC9"></rect>
+<path d="M44 300 V256" stroke="#2A3342" stroke-width="5" stroke-linecap="round"></path>
+<path d="M44 196 L18 262 H70Z" fill="#2A3342"></path>
+<path d="M596 300 V262" stroke="#2A3342" stroke-width="5" stroke-linecap="round"></path>
+<path d="M596 214 L574 268 H618Z" fill="#2A3342"></path>
+<rect x="{{ext.tankX}}" y="{{ext.tankY}}" width="{{ext.tankW}}" height="{{ext.tankH}}" rx="8" fill="#6E7F86" opacity="{{ext.agua}}"></rect>
+<rect x="{{ext.chX}}" y="{{ext.chY}}" width="{{ext.chW}}" height="{{ext.chH}}" rx="2" fill="#0B0D12" opacity="{{ext.estufa}}"></rect>
+<polygon points="{{ext.wallPts}}" fill="{{ext.wall}}"></polygon>
+<polygon points="{{ext.wallPts}}" fill="url(#pat-v)" opacity="{{ext.patV}}"></polygon>
+<polygon points="{{ext.wallPts}}" fill="url(#pat-h)" opacity="{{ext.patH}}"></polygon>
+<polygon points="{{ext.wallPts}}" fill="url(#pat-vl)" opacity="{{ext.patVL}}"></polygon>
+<rect x="{{ext.lwX}}" y="{{ext.lwY}}" width="{{ext.lwS}}" height="{{ext.lwS}}" rx="3" fill="#BFD3FF" stroke="#0B0D12" stroke-width="3" opacity="{{ext.loft}}"></rect>
+<rect x="{{ext.w1X}}" y="{{ext.wY}}" width="{{ext.wW}}" height="{{ext.wH}}" rx="3" fill="#BFD3FF" stroke="#0B0D12" stroke-width="3"></rect>
+<line x1="{{ext.w1cx}}" y1="{{ext.wY}}" x2="{{ext.w1cx}}" y2="{{ext.wB}}" stroke="#0B0D12" stroke-width="2.5"></line>
+<line x1="{{ext.w1X}}" y1="{{ext.wcy}}" x2="{{ext.w1R}}" y2="{{ext.wcy}}" stroke="#0B0D12" stroke-width="2.5"></line>
+<g opacity="{{ext.w2}}">
+<rect x="{{ext.w2X}}" y="{{ext.wY}}" width="{{ext.wW}}" height="{{ext.wH}}" rx="3" fill="#BFD3FF" stroke="#0B0D12" stroke-width="3"></rect>
+<line x1="{{ext.w2cx}}" y1="{{ext.wY}}" x2="{{ext.w2cx}}" y2="{{ext.wB}}" stroke="#0B0D12" stroke-width="2.5"></line>
+<line x1="{{ext.w2X}}" y1="{{ext.wcy}}" x2="{{ext.w2R}}" y2="{{ext.wcy}}" stroke="#0B0D12" stroke-width="2.5"></line>
+</g>
+<rect x="{{ext.dX}}" y="{{ext.dY}}" width="{{ext.dW}}" height="{{ext.dH}}" rx="3" fill="{{ext.door}}" stroke="#0B0D12" stroke-width="3"></rect>
+<circle cx="{{ext.knobX}}" cy="{{ext.knobY}}" r="3" fill="#FFFFFF"></circle>
+<rect x="{{ext.deckX}}" y="{{ext.deckY}}" width="{{ext.deckW}}" height="{{ext.deckH}}" fill="#B98A5E" opacity="{{ext.ter}}"></rect>
+<g opacity="{{ext.techo}}">
+<rect x="{{ext.deckX}}" y="{{ext.slabY}}" width="{{ext.deckW}}" height="8" rx="2" fill="#0B0D12"></rect>
+<rect x="{{ext.postL}}" y="{{ext.slabY}}" width="6" height="{{ext.postH}}" fill="#0B0D12"></rect>
+<rect x="{{ext.postR}}" y="{{ext.slabY}}" width="6" height="{{ext.postH}}" fill="#0B0D12"></rect>
+</g>
+<polyline points="{{ext.roofPts}}" fill="none" stroke="#0B0D12" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></polyline>
+<polygon points="{{ext.solarPts}}" fill="#1E3A5F" stroke="#9FB6CC" stroke-width="1.5" opacity="{{ext.solar}}"></polygon>
+</svg>
+</sc-if>
+<sc-if value="{{rd.isInt}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 640 360" width="100%" role="img" aria-label="{{iv.aria}}" style="display: block">
+<defs><pattern id="pat-pl" width="40" height="22" patternUnits="userSpaceOnUse"><line x1="0" y1="1" x2="40" y2="1" stroke="#000000" stroke-opacity=".12" stroke-width="1.5"></line></pattern></defs>
+<polygon points="0,0 640,0 560,40 80,40" fill="#E8EBF1"></polygon>
+<polygon points="0,0 80,40 80,250 0,360" fill="#ECEBE6"></polygon>
+<polygon points="640,0 560,40 560,250 640,360" fill="#ECEBE6"></polygon>
+<rect x="80" y="40" width="480" height="210" fill="#F7F6F2"></rect>
+<polygon points="0,360 80,250 560,250 640,360" fill="{{iv.floor}}"></polygon>
+<polygon points="0,360 80,250 560,250 640,360" fill="url(#pat-pl)"></polygon>
+<ellipse cx="384" cy="300" rx="140" ry="26" fill="#E6EEFF"></ellipse>
+<rect x="300" y="80" width="140" height="96" rx="4" fill="#BFD3FF" stroke="#0B0D12" stroke-width="4"></rect>
+<line x1="370" y1="80" x2="370" y2="176" stroke="#0B0D12" stroke-width="3"></line>
+<line x1="300" y1="128" x2="440" y2="128" stroke="#0B0D12" stroke-width="3"></line>
+<line x1="384" y1="40" x2="384" y2="58" stroke="#0B0D12" stroke-width="2"></line>
+<path d="M372 58 h24 l-5 10 h-14z" fill="#0B0D12"></path>
+<rect x="100" y="122" width="120" height="7" fill="#7F5A37"></rect>
+<rect x="110" y="104" width="14" height="18" rx="3" fill="#0552E6"></rect>
+<rect x="132" y="110" width="12" height="12" rx="3" fill="#C79A6B"></rect>
+<rect x="190" y="102" width="18" height="20" rx="3" fill="#FFFFFF" stroke="#0B0D12" stroke-opacity=".3"></rect>
+<rect x="96" y="182" width="134" height="68" fill="{{iv.cab}}" stroke="#0B0D12" stroke-opacity=".25"></rect>
+<line x1="140" y1="186" x2="140" y2="246" stroke="#0B0D12" stroke-opacity=".25"></line>
+<line x1="185" y1="186" x2="185" y2="246" stroke="#0B0D12" stroke-opacity=".25"></line>
+<rect x="92" y="174" width="142" height="10" rx="2" fill="{{iv.top}}" stroke="#0B0D12" stroke-opacity=".2"></rect>
+<path d="M150 174 V160 H162" stroke="#0B0D12" stroke-width="3" fill="none" stroke-linecap="round"></path>
+<g opacity="{{iv.loft}}">
+<rect x="80" y="62" width="196" height="10" fill="#7F5A37"></rect>
+<line x1="80" y1="48" x2="276" y2="48" stroke="#0B0D12" stroke-width="2"></line>
+<line x1="110" y1="48" x2="110" y2="62" stroke="#0B0D12" stroke-width="2"></line>
+<line x1="160" y1="48" x2="160" y2="62" stroke="#0B0D12" stroke-width="2"></line>
+<line x1="210" y1="48" x2="210" y2="62" stroke="#0B0D12" stroke-width="2"></line>
+<line x1="260" y1="48" x2="260" y2="62" stroke="#0B0D12" stroke-width="2"></line>
+<line x1="256" y1="72" x2="256" y2="250" stroke="#7F5A37" stroke-width="4"></line>
+<line x1="276" y1="72" x2="276" y2="250" stroke="#7F5A37" stroke-width="4"></line>
+<line x1="256" y1="110" x2="276" y2="110" stroke="#7F5A37" stroke-width="3"></line>
+<line x1="256" y1="150" x2="276" y2="150" stroke="#7F5A37" stroke-width="3"></line>
+<line x1="256" y1="190" x2="276" y2="190" stroke="#7F5A37" stroke-width="3"></line>
+<line x1="256" y1="230" x2="276" y2="230" stroke="#7F5A37" stroke-width="3"></line>
+</g>
+<rect x="318" y="192" width="130" height="30" rx="10" fill="#0443B8"></rect>
+<rect x="312" y="212" width="142" height="30" rx="10" fill="#0552E6"></rect>
+<rect x="320" y="242" width="6" height="8" fill="#0B0D12"></rect>
+<rect x="440" y="242" width="6" height="8" fill="#0B0D12"></rect>
+<g opacity="{{iv.estufa}}">
+<rect x="477" y="40" width="10" height="150" fill="#0B0D12"></rect>
+<rect x="461" y="186" width="42" height="64" rx="6" fill="#0B0D12"></rect>
+<rect x="469" y="204" width="26" height="20" rx="3" fill="#E9783A"></rect>
+</g>
+<rect x="526" y="222" width="20" height="28" rx="3" fill="#C79A6B"></rect>
+<circle cx="536" cy="208" r="18" fill="#2A3342"></circle>
+</svg>
+</sc-if>
+</div>
+<span class="th-caption">{{rd.caption}}</span>
+<div class="th-chips" role="group" aria-label="Vista">
+<sc-for list="{{rd.views}}" as="v" hint-placeholder-count="2">
+<button type="button" class="th-chip th-chip-sq" onClick="{{v.pick}}" aria-pressed="{{v.aria}}" data-on="{{v.on}}">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isPlanta}}" hint-placeholder-val="{{ false }}">
+<div class="th-canvas th-stack" style="gap: 12px">
+<span class="th-small" style="font-weight: 600; color: var(--c-ink-2)">Planta esquemática a escala · {{plan.totalTxt}}</span>
+<div class="th-plan">
+<div class="th-plan-area">
+<span class="th-small" style="width: {{plan.houseW}}%; text-align: center; font-size: .75rem">{{plan.lTxt}}</span>
+<div class="th-plan-row">
+<div class="th-house" style="width: {{plan.houseW}}%; aspect-ratio: {{plan.houseRatio}}">
+<sc-for list="{{plan.rooms}}" as="r" hint-placeholder-count="4">
+<div class="th-room" style="width: {{r.pct}}%; background: {{r.bg}}; border-right: {{r.br}}" title="{{r.name}} · {{r.lenTxt}}"><b>{{r.name}}</b><span>{{r.lenTxt}}</span></div>
+</sc-for>
+</div>
+<sc-if value="{{plan.ter}}" hint-placeholder-val="{{ false }}">
+<div class="th-deck" style="width: {{plan.deckW}}%; aspect-ratio: {{plan.deckRatio}}; border: {{plan.deckBorder}}">{{plan.deckTxt}}</div>
+</sc-if>
+</div>
+<sc-if value="{{plan.mod}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex"><span style="width: {{plan.baseW}}%; flex-shrink: 0"></span><span style="width: {{plan.modW}}%; flex-shrink: 0; border-top: 2px dashed #7F5A37; padding-top: 4px; font-size: .75rem; font-weight: 700; color: #7F5A37; text-align: center">Módulo extra</span></div>
+</sc-if>
+</div>
+<span class="th-small" style="font-size: .75rem; padding-top: 22px; white-space: nowrap">{{plan.aTxt}}</span>
+</div>
+<div class="th-legend" aria-label="Recintos">
+<sc-for list="{{plan.rooms}}" as="r" hint-placeholder-count="4">
+<span><i style="background: {{r.bg}}"></i>{{r.name}} · {{r.lenTxt}}</span>
+</sc-for>
+</div>
+<sc-if value="{{plan.loft}}" hint-placeholder-val="{{ false }}">
+<span class="th-small" style="color: var(--c-primary); font-weight: 600">{{plan.loftTxt}}</span>
+</sc-if>
+<span class="th-note">Esquema referencial de distribución.</span>
+</div>
+</sc-if>
+
+<sc-if value="{{isFachada}}" hint-placeholder-val="{{ false }}">
+<div class="th-canvas" style="padding: 12px">
+<svg viewBox="0 0 640 320" width="100%" role="img" aria-label="{{fz.aria}}" style="display: block">
+<rect x="0" y="290" width="640" height="30" fill="#DCD3C2"></rect>
+<rect x="{{fz.tankX}}" y="{{fz.tankY}}" width="{{fz.tankW}}" height="{{fz.tankH}}" rx="6" fill="#6E7F86" opacity="{{fz.agua}}"></rect>
+<rect x="{{fz.chX}}" y="{{fz.chY}}" width="{{fz.chW}}" height="{{fz.chH}}" fill="#3A3F3C" opacity="{{fz.estufa}}"></rect>
+<polygon points="{{fz.wallPts}}" fill="{{fz.wall}}"></polygon>
+<polygon points="{{fz.roofPts}}" fill="#0B0D12"></polygon>
+<polygon points="{{fz.solarPts}}" fill="#1E3A5F" stroke="#9FB6CC" stroke-width="1" opacity="{{fz.solar}}"></polygon>
+<rect x="{{fz.w1X}}" y="{{fz.winY}}" width="{{fz.w1W}}" height="{{fz.winH}}" fill="#BFD3FF" stroke="#0B0D12" stroke-width="2"></rect>
+<rect x="{{fz.w2X}}" y="{{fz.winY}}" width="{{fz.w2W}}" height="{{fz.winH}}" fill="#BFD3FF" stroke="#0B0D12" stroke-width="2"></rect>
+<rect x="{{fz.dX}}" y="{{fz.dY}}" width="{{fz.dW}}" height="{{fz.dH}}" fill="#6B4A33" stroke="#0B0D12" stroke-width="2"></rect>
+<rect x="{{fz.mwX}}" y="{{fz.winY}}" width="{{fz.mwW}}" height="{{fz.winH}}" fill="#BFD3FF" stroke="#0B0D12" stroke-width="2" opacity="{{fz.mod}}"></rect>
+<line x1="{{fz.seamX}}" y1="290" x2="{{fz.seamX}}" y2="{{fz.seamY}}" stroke="#7F5A37" stroke-width="2" stroke-dasharray="6 5" opacity="{{fz.mod}}"></line>
+<rect x="{{fz.lwX}}" y="{{fz.lwY}}" width="{{fz.lwS}}" height="{{fz.lwS}}" fill="#BFD3FF" stroke="#0B0D12" stroke-width="2" opacity="{{fz.loft}}"></rect>
+<rect x="{{fz.deckX}}" y="{{fz.deckY}}" width="{{fz.deckW}}" height="{{fz.deckH}}" fill="#B98A5E" opacity="{{fz.ter}}"></rect>
+<rect x="{{fz.deckX}}" y="{{fz.tY}}" width="{{fz.tW}}" height="7" fill="#0B0D12" opacity="{{fz.techo}}"></rect>
+<rect x="{{fz.postX}}" y="{{fz.tY}}" width="5" height="{{fz.postH}}" fill="#0B0D12" opacity="{{fz.techo}}"></rect>
+</svg>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; font-size: .75rem; color: var(--c-muted); padding: 4px 8px"><span>Fachada lateral esquemática · alto {{fz.hTxt}}</span><span>Revestimiento: {{fz.revName}}</span></div>
+</div>
+</sc-if>
+</div>
+</div>
+
+<!-- Resumen compacto (escritorio) -->
+<div class="th-dark th-compact">
+<div class="th-compact-row">
+<span class="th-dark-caption">{{progressTxt}}</span>
+<nav class="th-progress" aria-label="Pasos de personalización">
+<sc-for list="{{progress}}" as="pg" hint-placeholder-count="6">
+<a href="{{pg.href}}" data-on="{{pg.on}}" aria-label="{{pg.aria}}">{{pg.n}}</a>
+</sc-for>
+</nav>
+</div>
+<div class="th-compact-row">
+<div class="th-stack" style="gap: 0">
+<span class="th-dark-caption">Total estimado · Tiny {{dm.name}} · {{sum.m2Txt}}</span>
+<span class="th-price-big" aria-live="polite">{{sum.totalTxt}}</span>
+</div>
+<div class="th-chips" style="align-items: center">
+<a href="#resumen" class="th-link th-link-dark" style="font-size: .875rem">Ver detalle</a>
+<a href="#contacto" onClick="{{saveQuote}}" class="th-btn th-btn-action th-btn-sm">Solicitar cotización</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Columna derecha: opciones -->
+<div class="th-detail-right">
+<div class="th-step" id="paso-1">
+<div class="th-step-head"><h2 id="h-paso-1">1. Tamaño</h2><span class="th-small">{{sizeHint}}</span></div>
+<div class="th-opts" role="radiogroup" aria-labelledby="h-paso-1">
+<sc-for list="{{sizeOpts}}" as="o" hint-placeholder-count="2">
+<button type="button" class="th-opt" role="{{o.role}}" aria-checked="{{o.aria}}" data-on="{{o.on}}" data-kind="{{o.kind}}" data-child="{{o.child}}" data-new="{{o.newAttr}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">
+<span class="th-ind" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<span class="th-opt-text"><span class="th-opt-title">{{o.label}}<sc-if value="{{o.isNew}}" hint-placeholder-val="{{ false }}"><span class="th-new">Nueva opción</span></sc-if></span><span class="th-opt-sub">{{o.sub}}</span></span>
+<span class="th-price" data-price="{{o.priceKind}}">{{o.priceTxt}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div class="th-step" id="paso-2">
+<div class="th-step-head"><h2 id="h-paso-2">2. Distribución</h2><span class="th-small">Cambia el plano</span></div>
+<div class="th-opts th-opts-1" role="radiogroup" aria-labelledby="h-paso-2">
+<sc-for list="{{distOpts}}" as="o" hint-placeholder-count="2">
+<button type="button" class="th-opt" role="{{o.role}}" aria-checked="{{o.aria}}" data-on="{{o.on}}" data-kind="{{o.kind}}" data-child="{{o.child}}" data-new="{{o.newAttr}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">
+<span class="th-ind" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<span class="th-opt-text"><span class="th-opt-title">{{o.label}}<sc-if value="{{o.isNew}}" hint-placeholder-val="{{ false }}"><span class="th-new">Nueva opción</span></sc-if></span><span class="th-opt-sub">{{o.sub}}</span></span>
+<span class="th-price" data-price="{{o.priceKind}}">{{o.priceTxt}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div class="th-step" id="paso-3">
+<div class="th-step-head"><h2 id="h-paso-3">3. Revestimiento exterior</h2><span class="th-small">Cambia la fachada y el render</span></div>
+<div class="th-opts th-opts-1" role="radiogroup" aria-labelledby="h-paso-3">
+<sc-for list="{{revOpts}}" as="o" hint-placeholder-count="3">
+<button type="button" class="th-opt" role="{{o.role}}" aria-checked="{{o.aria}}" data-on="{{o.on}}" data-kind="{{o.kind}}" data-child="{{o.child}}" data-new="{{o.newAttr}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">
+<span class="th-ind" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<sc-if value="{{o.hasSwatch}}" hint-placeholder-val="{{ true }}"><span class="th-swatch" style="background: {{o.swatch}}" aria-hidden="true"></span></sc-if>
+<span class="th-opt-text"><span class="th-opt-title">{{o.label}}</span><span class="th-opt-sub">{{o.sub}}</span></span>
+<span class="th-price" data-price="{{o.priceKind}}">{{o.priceTxt}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div class="th-step" id="paso-4">
+<div class="th-step-head"><h2 id="h-paso-4">4. Terminaciones interiores</h2><span class="th-small">Pisos, cocina y grifería</span></div>
+<div class="th-opts th-opts-1" role="radiogroup" aria-labelledby="h-paso-4">
+<sc-for list="{{termOpts}}" as="o" hint-placeholder-count="2">
+<button type="button" class="th-opt" role="{{o.role}}" aria-checked="{{o.aria}}" data-on="{{o.on}}" data-kind="{{o.kind}}" data-child="{{o.child}}" data-new="{{o.newAttr}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">
+<span class="th-ind" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<span class="th-opt-text"><span class="th-opt-title">{{o.label}}</span><span class="th-opt-sub">{{o.sub}}</span></span>
+<span class="th-price" data-price="{{o.priceKind}}">{{o.priceTxt}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div class="th-step" id="paso-5">
+<div class="th-step-head"><h2 id="h-paso-5">5. Extras</h2><span class="th-small">Algunos desbloquean nuevas opciones</span></div>
+<div class="th-opts th-opts-1" role="group" aria-labelledby="h-paso-5">
+<sc-for list="{{extraOpts}}" as="o" hint-placeholder-count="4">
+<button type="button" class="th-opt" role="{{o.role}}" aria-checked="{{o.aria}}" data-on="{{o.on}}" data-kind="{{o.kind}}" data-child="{{o.child}}" data-new="{{o.newAttr}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">
+<span class="th-ind" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<span class="th-opt-text"><span class="th-opt-title">{{o.label}}<sc-if value="{{o.isNew}}" hint-placeholder-val="{{ false }}"><span class="th-new">Nueva opción</span></sc-if></span><span class="th-opt-sub">{{o.sub}}</span></span>
+<span class="th-price" data-price="{{o.priceKind}}">{{o.priceTxt}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div class="th-step" id="paso-6">
+<div class="th-step-head"><h2 id="h-paso-6">6. Traslado e instalación</h2><span class="th-small">Según la zona de tu terreno</span></div>
+<div class="th-opts th-opts-1" role="radiogroup" aria-labelledby="h-paso-6">
+<sc-for list="{{zonaOpts}}" as="o" hint-placeholder-count="3">
+<button type="button" class="th-opt" role="{{o.role}}" aria-checked="{{o.aria}}" data-on="{{o.on}}" data-kind="{{o.kind}}" data-child="{{o.child}}" data-new="{{o.newAttr}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">
+<span class="th-ind" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<span class="th-opt-text"><span class="th-opt-title">{{o.label}}</span><span class="th-opt-sub">{{o.sub}}</span></span>
+<span class="th-price" data-price="{{o.priceKind}}">{{o.priceTxt}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<!-- Resumen completo -->
+<aside id="resumen" class="th-dark th-stack" style="gap: 18px" aria-labelledby="h-resumen">
+<span class="th-dark-caption" style="font-size: .875rem; font-weight: 600">Tu configuración</span>
+<h2 id="h-resumen" class="th-h1" style="font-size: 1.75rem">Tiny {{dm.name}}</h2>
+<div class="th-tiles">
+<div class="th-tile"><span class="th-tile-k">Superficie</span><span class="th-tile-v">{{sum.m2Txt}}</span><span class="th-tile-s">{{sum.m2Sub}}</span></div>
+<div class="th-tile"><span class="th-tile-k">Dormitorios</span><span class="th-tile-v">{{sum.dormTxt}}</span><span class="th-tile-s">{{sum.dormSub}}</span></div>
+<div class="th-tile"><span class="th-tile-k">Largo total</span><span class="th-tile-v">{{sum.lTxt}}</span><span class="th-tile-s">{{sum.lSub}}</span></div>
+</div>
+<div class="th-lines">
+<sc-for list="{{sum.lines}}" as="ln" hint-placeholder-count="3">
+<div class="th-line"><span>{{ln.label}}</span><span data-price="{{ln.kind}}">{{ln.priceTxt}}</span></div>
+</sc-for>
+</div>
+<div class="th-total"><span class="th-muted" style="font-size: .9375rem">Total estimado</span><span class="th-price-big">{{sum.totalTxt}}</span></div>
+<a href="#contacto" onClick="{{saveQuote}}" class="th-btn th-btn-action th-btn-block">Solicitar cotización</a>
+<button type="button" onClick="{{resetCfg}}" class="th-btn th-btn-ghost-dark th-btn-sm th-btn-block">Reiniciar opciones</button>
+<span class="th-note">Valores referenciales. El precio final se confirma en la cotización.</span>
+</aside>
+</div>
+</div>
+</section>
+
+<!-- Barra fija móvil -->
+<div class="th-mbar">
+<div class="th-mbar-total">
+<a href="#resumen">Total estimado · ver detalle</a>
+<strong aria-live="polite">{{sum.totalTxt}}</strong>
+</div>
+<a href="#contacto" onClick="{{saveQuote}}" class="th-btn th-btn-action th-btn-sm">Cotizar</a>
+</div>
+</sc-if>
+
+<!-- CONTACTO -->
+<section id="contacto" class="th-contact">
+<div class="th-wrap th-section th-contact-grid">
+<div class="th-contact-copy">
+<span class="th-eyebrow">Contacto</span>
+<h2 class="th-h2">Conversemos sobre tu Tiny</h2>
+<p class="th-lead">Déjanos tus datos y te enviamos una cotización sin compromiso.</p>
+<div class="th-contact-list">
+<span>WhatsApp: +56 9 1234 5678</span>
+<span>Correo: hola@tinyhouse.cl</span>
+<span>Showroom en Santiago, con cita previa</span>
+<span>Lunes a viernes 9:00–18:00 · Sábado 10:00–14:00</span>
+</div>
+<sc-if value="{{hasQuote}}" hint-placeholder-val="{{ false }}">
+<div class="th-quote">
+<span style="font-size: .8125rem; color: #FFFFFF; font-weight: 700">Configuración que nos enviarás</span>
+<span style="font-size: .9375rem; line-height: 1.6; white-space: pre-line">{{quoteText}}</span>
+</div>
+</sc-if>
+</div>
+
+<sc-if value="{{formSent}}" hint-placeholder-val="{{ false }}">
+<div class="th-form" role="status">
+<div class="th-sent th-form-full">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0552E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M7 12.5l3.2 3.2L17 9"></path></svg>
+<h3 class="th-h3">¡Gracias, {{sentName}}! Recibimos tu solicitud.</h3>
+<p class="th-body">Te contactaremos dentro de 1 día hábil con tu cotización.</p>
+<span class="th-note">Versión de demostración: no se enviaron datos.</span>
+<button type="button" class="th-btn th-btn-ghost th-btn-sm" onClick="{{resetForm}}">Enviar otra consulta</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{formOpen}}" hint-placeholder-val="{{ true }}">
+<form class="th-form" novalidate aria-label="Solicitud de cotización">
+<div class="th-stack" style="gap: 8px">
+<label for="c-nombre" class="th-label" style="font-size: .9375rem">Nombre</label>
+<input id="c-nombre" class="th-input" type="text" name="nombre" autocomplete="name" required aria-required="true" aria-invalid="{{invNombre}}" aria-describedby="c-nombre-err" placeholder="Tu nombre">
+<sc-if value="{{errNombre}}" hint-placeholder-val="{{ false }}"><span id="c-nombre-err" class="th-err">{{errNombreTxt}}</span></sc-if>
+</div>
+<div class="th-stack" style="gap: 8px">
+<label for="c-tel" class="th-label" style="font-size: .9375rem">Teléfono</label>
+<input id="c-tel" class="th-input" type="tel" name="telefono" autocomplete="tel" inputmode="tel" aria-invalid="{{invTel}}" aria-describedby="c-contacto-hint" placeholder="+56 9 1234 5678">
+</div>
+<div class="th-stack" style="gap: 8px">
+<label for="c-mail" class="th-label" style="font-size: .9375rem">Correo</label>
+<input id="c-mail" class="th-input" type="email" name="correo" autocomplete="email" inputmode="email" aria-invalid="{{invMail}}" aria-describedby="c-contacto-hint" placeholder="tu@correo.cl">
+<sc-if value="{{errMail}}" hint-placeholder-val="{{ false }}"><span class="th-err">{{errMailTxt}}</span></sc-if>
+</div>
+<div class="th-stack" style="gap: 8px">
+<label for="c-modelo" class="th-label" style="font-size: .9375rem">Modelo de interés</label>
+<input id="c-modelo" class="th-input" type="text" name="modelo" value="{{formModel}}" onChange="{{onFormModel}}">
+</div>
+<div class="th-form-full" id="c-contacto-hint">
+<sc-if value="{{errContacto}}" hint-placeholder-val="{{ false }}"><span class="th-err">{{errContactoTxt}}</span></sc-if>
+<sc-if value="{{noErrContacto}}" hint-placeholder-val="{{ true }}"><span class="th-hint">Basta con un teléfono o un correo.</span></sc-if>
+</div>
+<div class="th-stack th-form-full" style="gap: 8px">
+<label for="c-msg" class="th-label" style="font-size: .9375rem">Cuéntanos de tu proyecto <span class="th-hint" style="font-weight: 400">(opcional)</span></label>
+<textarea id="c-msg" class="th-input" name="mensaje" rows="4" placeholder="Ubicación del terreno, plazos, dudas…"></textarea>
+</div>
+<button type="button" class="th-btn th-btn-action th-form-full" style="min-height: 52px" onClick="{{sendForm}}">Enviar solicitud</button>
+</form>
+</sc-if>
+</div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="th-footer">
+<div class="th-wrap th-footer-row">
+<span class="th-footer-logo"><b>Tiny</b>House</span>
+<nav style="display: flex; flex-wrap: wrap; gap: 0 24px" aria-label="Pie de página">
+<a href="#modelos" onClick="{{navTo.modelos}}">Modelos</a>
+<a href="#proceso" onClick="{{navTo.proceso}}">Proceso</a>
+<a href="#contacto" onClick="{{navTo.contacto}}">Contacto</a>
+<a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+</nav>
+<span>© 2026 Tiny House · Prototipo de demostración</span>
+</div>
+</footer>
+
+<!-- Aviso con deshacer -->
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+<div class="th-toast" role="status">
+<p>{{toastMsg}}</p>
+<sc-if value="{{toastUndo}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{undoToast}}">Deshacer</button></sc-if>
+<button type="button" onClick="{{closeToast}}" aria-label="Cerrar aviso" style="border: none; color: var(--c-on-dark-muted)">✕</button>
+</div>
+</sc-if>
+</div>
+</template>
+<script>
+(function () {
+  var tplEl = document.getElementById('tpl');
+  var app = document.getElementById('app');
+  var handlers = [];
+  var comp = null;
+  var VOID = { area: 1, base: 1, br: 1, col: 1, embed: 1, hr: 1, img: 1, input: 1, link: 1, meta: 1, source: 1, track: 1, wbr: 1 };
+  var RE = /\{\{\s*([^}]+?)\s*\}\}/g;
+  var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+  var escText = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+  function get(scope, path) {
+    path = (path || '').trim();
+    if (!path) return undefined;
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    var parts = path.split('.'), v;
+    for (var i = scope.length - 1; i >= 0; i--) {
+      if (scope[i] && Object.prototype.hasOwnProperty.call(scope[i], parts[0])) { v = scope[i][parts[0]]; break; }
+    }
+    for (var k = 1; k < parts.length; k++) { if (v == null) return undefined; v = v[parts[k]]; }
+    return v;
+  }
+  function interp(str, scope) { return str.replace(RE, function (_, p) { var v = get(scope, p); return v == null ? '' : String(v); }); }
+  function single(str) { var m = (str || '').match(/^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/); return m ? m[1] : null; }
+  function ser(node, scope) {
+    var out = '';
+    var kids = node.childNodes;
+    for (var i = 0; i < kids.length; i++) {
+      var n = kids[i];
+      if (n.nodeType === 3) { out += escText(interp(n.nodeValue, scope)); continue; }
+      if (n.nodeType !== 1) continue;
+      var tag = n.localName;
+      if (tag === 'sc-if') { if (get(scope, single(n.getAttribute('value')))) out += ser(n, scope); continue; }
+      if (tag === 'sc-for') {
+        var list = get(scope, single(n.getAttribute('list'))) || [];
+        var as = n.getAttribute('as');
+        for (var j = 0; j < list.length; j++) { var o = {}; o[as] = list[j]; out += ser(n, scope.concat([o])); }
+        continue;
+      }
+      var attrs = '';
+      for (var a = 0; a < n.attributes.length; a++) {
+        var at = n.attributes[a], name = at.name;
+        if (name.indexOf('hint-') === 0) continue;
+        var p = single(at.value);
+        if (name.indexOf('on') === 0 && name.length > 2) {
+          var fn = p && get(scope, p);
+          if (typeof fn === 'function') { var id = handlers.push(fn) - 1; attrs += ' data-ev-' + name.slice(2).toLowerCase() + '="' + id + '"'; }
+          continue;
+        }
+        if (p !== null) {
+          var v = get(scope, p);
+          if (typeof v === 'boolean') { if (v) attrs += ' ' + name + '=""'; continue; }
+          if (v == null) continue;
+          attrs += ' ' + name + '="' + esc(v) + '"';
+          continue;
+        }
+        attrs += ' ' + name + '="' + esc(interp(at.value, scope)) + '"';
+      }
+      out += '<' + tag + attrs + '>';
+      if (VOID[tag]) continue;
+      out += tag === 'textarea' ? escText(n.textContent) : ser(n, scope);
+      out += '</' + tag + '>';
+    }
+    return out;
+  }
+  function patch(parent, next) {
+    var a = Array.prototype.slice.call(parent.childNodes);
+    var b = Array.prototype.slice.call(next.childNodes);
+    for (var i = 0; i < b.length; i++) {
+      var o = a[i], n = b[i];
+      if (!o) { parent.appendChild(n); continue; }
+      if (o.nodeType !== n.nodeType || o.nodeName !== n.nodeName) { parent.replaceChild(n, o); continue; }
+      if (o.nodeType !== 1) { if (o.nodeValue !== n.nodeValue) o.nodeValue = n.nodeValue; continue; }
+      var oa = Array.prototype.slice.call(o.attributes);
+      for (var x = 0; x < oa.length; x++) if (!n.hasAttribute(oa[x].name)) o.removeAttribute(oa[x].name);
+      var na = n.attributes;
+      for (var y = 0; y < na.length; y++) if (o.getAttribute(na[y].name) !== na[y].value) o.setAttribute(na[y].name, na[y].value);
+      if (o.tagName === 'INPUT' || o.tagName === 'TEXTAREA') {
+        if (n.hasAttribute('value') && document.activeElement !== o && o.value !== n.getAttribute('value')) o.value = n.getAttribute('value');
+        if (o.tagName === 'TEXTAREA') continue;
+      }
+      if (o.tagName === 'BUTTON') o.disabled = n.hasAttribute('disabled');
+      patch(o, n);
+    }
+    for (var r = a.length - 1; r >= b.length; r--) parent.removeChild(a[r]);
+  }
+  function render() {
+    handlers = [];
+    var html = ser(tplEl.content, [comp.renderVals()]);
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    patch(app, tmp);
+  }
+  function DCLogic() { this.state = {}; }
+  DCLogic.prototype.setState = function (p, cb) {
+    this.state = Object.assign({}, this.state, typeof p === 'function' ? p(this.state) : p);
+    render();
+    if (cb) cb();
+  };
+  app.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-ev-click]');
+    if (el && app.contains(el) && !el.disabled) { var fn = handlers[+el.getAttribute('data-ev-click')]; if (fn) fn(e); }
+  });
+  app.addEventListener('input', function (e) {
+    var el = e.target.closest('[data-ev-change]');
+    if (el) { var fn = handlers[+el.getAttribute('data-ev-change')]; if (fn) fn(e); }
+  });
+  window.DCLogic = DCLogic;
+  window.__dcBoot = function (C) { comp = new C(); render(); };
+})();
+
+</script>
+<script>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var MODELS = [
+      { id: 'semilla', name: 'Semilla', m2: 15, l: 6.0, a: 2.5, h: 3.8, d: 1, b: 1, priceN: 14900000, tag: 'Para 1–2 personas, estudio u oficina', tone: '#E4ECFB', loftBase: true },
+      { id: 'brote', name: 'Brote', m2: 22, l: 7.2, a: 3.0, h: 4.0, d: 1, b: 1, priceN: 19900000, tag: 'Pareja o refugio de fin de semana', tone: '#EEF0F3' },
+      { id: 'raiz', name: 'Raíz', m2: 30, l: 9.0, a: 3.3, h: 4.0, d: 2, b: 1, priceN: 26500000, tag: 'Familia pequeña, cocina integrada', tone: '#E6EEF9' },
+      { id: 'bosque', name: 'Bosque', m2: 42, l: 12.0, a: 3.5, h: 4.2, d: 2, b: 1, priceN: 34900000, tag: 'Espacios amplios y terraza', tone: '#E4ECFB' },
+      { id: 'cumbre', name: 'Cumbre', m2: 56, l: 12.0, a: 4.7, h: 4.3, d: 3, b: 2, priceN: 44900000, tag: 'Casa familiar en 2 módulos', tone: '#EEF0F3' }
+    ];
+    var s = this.state || {};
+    var fmt = function (n) { return n.toFixed(1).replace('.', ','); };
+    var r1 = function (n) { return Math.round(n * 10) / 10; };
+    var money = function (n) { return '$' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+    var plus = function (n) { return n === 0 ? 'Incluido' : (n > 0 ? '+ ' + money(n) : '− ' + money(-n)); };
+    var priceKind = function (n) { return n < 0 ? 'neg' : (n === 0 ? 'incl' : 'pos'); };
+    var dormWord = function (n) { return n + (n === 1 ? ' dormitorio' : ' dormitorios'); };
+    var bool = function (b) { return b ? 'true' : 'false'; };
+    var flag = function (b) { return b ? '1' : '0'; };
+    var joinY = function (arr) { return arr.length > 1 ? arr.slice(0, -1).join(', ') + ' y ' + arr[arr.length - 1] : (arr[0] || ''); };
+    var byId = function (id) { return MODELS.filter(function (m) { return m.id === id; })[0] || null; };
+    var defaultCfg = function () { return { mod: false, dist: 'base', rev: 'madera', term: 'std', ex: {}, zona: 'rm', touched: {} }; };
+    var reduceMotion = function () { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+    var scrollToId = function (id) { var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' }); };
+
+    // ---------- avisos con deshacer ----------
+    var showToast = function (patch, toast) {
+      var tid = Date.now();
+      self.setState(Object.assign({}, patch, { toast: Object.assign({ id: tid }, toast) }));
+      setTimeout(function () { var t = (self.state || {}).toast; if (t && t.id === tid) self.setState({ toast: null }); }, 6000);
+    };
+
+    // ---------- navegación ----------
+    var navTo = {};
+    ['inicio', 'nosotros', 'configurador', 'modelos', 'proceso', 'contacto'].forEach(function (id) {
+      navTo[id] = function () {
+        var st = self.state || {};
+        if (st.view === 'detail' && id !== 'contacto') {
+          self.setState({ view: 'home', menuOpen: false }, function () { setTimeout(function () { scrollToId(id); }, 40); });
+        } else if (st.menuOpen) {
+          self.setState({ menuOpen: false });
+        }
+      };
+    });
+    var openDetail = function (id, keep) {
+      var st = self.state || {};
+      if (keep) {
+        if (st.detail === id) return;
+        var prev = st.detail;
+        showToast({ view: 'detail', detail: id, sel: id, selManual: true },
+          { msg: 'Cambiaste al modelo ' + byId(id).name + '. Mantuvimos tus opciones compatibles.', undo: { detail: prev, sel: prev } });
+        return;
+      }
+      self.setState({ view: 'detail', detail: id, sel: id, selManual: true, cfg: defaultCfg(), tab: 'render', rview: 0, quote: null, formModel: null, menuOpen: false, toast: null }, function () { window.scrollTo(0, 0); });
+    };
+
+    // ---------- inicio: configurador de búsqueda ----------
+    var mode = s.mode || 'm2';
+    var target = s.target != null ? s.target : 25;
+    var maxL = s.maxL != null ? s.maxL : 10;
+    var maxA = s.maxA != null ? s.maxA : 5;
+    var maxH = s.maxH != null ? s.maxH : 4.2;
+    var dorm = s.dorm || 0;
+    var fits = function (m) {
+      if (m.d < dorm) return false;
+      if (mode === 'm2') return Math.abs(m.m2 - target) <= 8;
+      return m.l <= maxL && m.a <= maxA && m.h <= maxH;
+    };
+    var matched = MODELS.filter(fits);
+    var best = null;
+    if (matched.length) {
+      best = matched.slice().sort(mode === 'm2'
+        ? function (x, y) { return Math.abs(x.m2 - target) - Math.abs(y.m2 - target); }
+        : function (x, y) { return y.m2 - x.m2; })[0];
+    }
+    var selId = s.sel && matched.some(function (m) { return m.id === s.sel; }) ? s.sel : (best ? best.id : (s.sel || null));
+    if (!matched.length) selId = s.selManual ? s.sel : null;
+
+    // estado vacío: qué bloquea y cuál es el más cercano
+    var near = null, emptyReason = '';
+    if (!matched.length) {
+      var cands = MODELS.filter(function (m) { return m.d >= dorm; });
+      if (!cands.length) {
+        near = MODELS.slice().sort(function (x, y) { return y.d - x.d; })[0];
+        emptyReason = 'Ningún modelo base tiene ' + dorm + ' o más dormitorios. El que más tiene es ' + near.name + ' (' + dormWord(near.d) + ').';
+      } else if (mode === 'm2') {
+        near = cands.slice().sort(function (x, y) { return Math.abs(x.m2 - target) - Math.abs(y.m2 - target); })[0];
+        emptyReason = (dorm ? 'Con ' + dorm + '+ dormitorios, ninguno' : 'Ninguno') + ' está a ±8 m² de ' + target + ' m². El más cercano es ' + near.name + ', con ' + near.m2 + ' m².';
+      } else {
+        var excess = function (m) { return Math.max(0, m.l - maxL) + Math.max(0, m.a - maxA) + Math.max(0, m.h - maxH); };
+        near = cands.slice().sort(function (x, y) { return excess(x) - excess(y); })[0];
+        var need = [];
+        if (near.l > maxL) need.push(fmt(near.l) + ' m de largo');
+        if (near.a > maxA) need.push(fmt(near.a) + ' m de ancho');
+        if (near.h > maxH) need.push(fmt(near.h) + ' m de alto');
+        emptyReason = 'El más cercano es ' + near.name + ': necesita ' + joinY(need) + '.';
+      }
+    }
+
+    var models = MODELS.map(function (m) {
+      var isSel = m.id === selId;
+      var ok = fits(m);
+      return Object.assign({}, m, {
+        price: money(m.priceN),
+        lxa: fmt(m.l) + ' × ' + fmt(m.a) + ' m',
+        hTxt: fmt(m.h) + ' m',
+        lTxt: 'largo ' + fmt(m.l) + ' m',
+        aTxt: 'ancho ' + fmt(m.a) + ' m',
+        db: dormWord(m.d) + ' · ' + m.b + (m.b === 1 ? ' baño' : ' baños'),
+        matched: ok,
+        matchAttr: flag(ok),
+        isSel: isSel,
+        onAttr: flag(isSel),
+        pick: function () { self.setState({ sel: m.id, selManual: true }); },
+        open: function () { openDetail(m.id); }
+      });
+    });
+    var sel = models.filter(function (m) { return m.id === selId; })[0] || null;
+    var selBadge = sel ? (sel.matched ? (best && sel.id === best.id ? 'Recomendado para tu búsqueda' : 'Calza con tu búsqueda') : 'Fuera de tus filtros') : '';
+    var matchedModels = models.filter(function (m) { return m.matched; });
+    var matchedPills = matchedModels.map(function (m) {
+      var on = m.id === selId;
+      return { label: m.name + ' · ' + m.m2 + ' m²', on: flag(on), aria: bool(on), pick: m.pick };
+    });
+    var dorms = [{ label: 'Cualquiera', v: 0 }, { label: '2+', v: 2 }, { label: '3+', v: 3 }].map(function (o) {
+      var on = o.v === dorm;
+      return { label: o.label, on: flag(on), aria: bool(on), pick: function () { self.setState({ dorm: o.v, selManual: false }); } };
+    });
+    var n = matched.length;
+    var matchText = n === 0 ? 'Ningún modelo base calza: te proponemos uno a medida.' : (n === 1 ? '1 modelo calza con tu búsqueda.' : n + ' modelos calzan con tu búsqueda.');
+    var onlyMatch = !!s.onlyMatch;
+    var shownModels = onlyMatch ? matchedModels : models;
+
+    // ---------- detalle: personalización ----------
+    var dmRaw = byId(s.detail) || MODELS[2];
+    var dm = models.filter(function (m) { return m.id === dmRaw.id; })[0];
+    var cfg = s.cfg || defaultCfg();
+    var ex = cfg.ex || {};
+    var touched = cfg.touched || {};
+    var exOn = function (id) { return !!ex[id]; };
+    var setCfg = function (patch, step, viewPatch) {
+      var st = self.state || {};
+      var c = st.cfg || defaultCfg();
+      var t = Object.assign({}, c.touched || {});
+      if (step) t[step] = 1;
+      self.setState(Object.assign({ cfg: Object.assign({}, c, patch, { touched: t }) }, viewPatch || {}));
+    };
+    // muestra el exterior si la vista actual no deja ver el cambio
+    var toExterior = function () {
+      var st = self.state || {};
+      var tb = st.tab || 'render';
+      if (tb === 'fachada' || (tb === 'render' && !(st.rview > 0))) return null;
+      return { tab: 'render', rview: 0 };
+    };
+
+    var mod = !!cfg.mod;
+    var modM2 = Math.round(3 * dmRaw.a);
+    var modPrice = Math.round(modM2 * 620000 / 100000) * 100000;
+    var L = dmRaw.l + (mod ? 3 : 0);
+    var m2Total = dmRaw.m2 + (mod ? modM2 : 0);
+    var floorBase = dmRaw.loftBase ? 0 : dmRaw.d;
+
+    var DIST = [{ id: 'base', label: dmRaw.loftBase ? 'Dormitorio en loft + estar' : dormWord(dmRaw.d) + ' + cocina-estar', sub: 'Distribución original del modelo', price: 0, floor: floorBase, office: false }];
+    if (dmRaw.d >= 2) DIST.push({ id: 'abierto', label: dormWord(dmRaw.d - 1) + ' + estar amplio', sub: 'Concepto más abierto y luminoso', price: -600000, floor: floorBase - 1, office: false });
+    if (mod) {
+      DIST.push({ id: 'masdorm', label: '+1 dormitorio en el módulo extra', sub: 'Ideal si la familia crece', price: 1200000, floor: floorBase + 1, office: false, isNew: true });
+      DIST.push({ id: 'oficina', label: 'Oficina en el módulo extra', sub: 'Espacio de trabajo independiente', price: 900000, floor: floorBase, office: true, isNew: true });
+    }
+    var dist = DIST.filter(function (d) { return d.id === cfg.dist; })[0] || DIST[0];
+
+    var REV = [
+      { id: 'madera', label: 'Madera natural', sub: 'Pino impregnado con aceite', price: 0, color: '#B07A4F', door: '#2A3342', patV: 1, patH: 0, patVL: 0 },
+      { id: 'gris', label: 'Siding gris', sub: 'Fibrocemento, bajo mantenimiento', price: 900000, color: '#9AA3A8', door: '#B07A4F', patV: 0, patH: 1, patVL: 0 },
+      { id: 'negro', label: 'Metal negro mate', sub: 'Look moderno y duradero', price: 1800000, color: '#2B3038', door: '#B07A4F', patV: 0, patH: 0, patVL: 1 }
+    ];
+    var rev = REV.filter(function (r) { return r.id === cfg.rev; })[0] || REV[0];
+    var TERM = [
+      { id: 'std', label: 'Estándar', sub: 'Piso vinílico, cocina melamina', price: 0 },
+      { id: 'prem', label: 'Premium', sub: 'Piso de madera, cubierta de cuarzo, grifería premium', price: Math.round(m2Total * 120000 / 100000) * 100000 }
+    ];
+    var term = TERM.filter(function (t) { return t.id === cfg.term; })[0] || TERM[0];
+    var canLoft = dmRaw.h >= 4.0 && !dmRaw.loftBase;
+    var EXTRAS = [
+      { id: 'terraza', label: 'Terraza de madera 12 m²', sub: 'Deck lateral de 3 × 4 m', price: 2400000 },
+      { id: 'techo', parent: 'terraza', label: 'Techar la terraza', sub: 'Cubierta y pilares a juego con la casa', price: 1600000 },
+      { id: 'loft', label: 'Loft en altura', sub: dmRaw.loftBase ? 'Este modelo ya incluye loft' : (canLoft ? 'Dormitorio o almacenaje sobre el baño' : 'Requiere un alto mínimo de 4,0 m'), price: 1900000, disabled: !canLoft },
+      { id: 'estufa', label: 'Estufa a leña', sub: 'Con cañón y protección térmica', price: 1100000, showIn: 'fachada' },
+      { id: 'solar', label: 'Paneles solares 3 kW', sub: 'Reduce tu cuenta de luz', price: 3900000, showIn: 'fachada' },
+      { id: 'bateria', parent: 'solar', label: 'Batería de respaldo', sub: 'Energía de noche o sin red', price: 2700000 },
+      { id: 'agua', label: 'Kit de agua', sub: 'Estanque 2.000 L + biodigestor', price: 2200000, showIn: 'fachada' }
+    ];
+    var ZONA = [
+      { id: 'rm', label: 'Región Metropolitana', sub: 'Traslado e instalación', price: 0 },
+      { id: 'centro', label: 'Zona centro', sub: 'Regiones V a VII', price: 1200000 },
+      { id: 'sur', label: 'Zona sur', sub: 'Regiones VIII a X', price: 2500000 }
+    ];
+    var zona = ZONA.filter(function (z) { return z.id === cfg.zona; })[0] || ZONA[0];
+
+    var toggleEx = function (e) {
+      var c = (self.state && self.state.cfg) || defaultCfg();
+      var e2 = Object.assign({}, c.ex || {});
+      e2[e.id] = !e2[e.id];
+      if (e.id === 'terraza' && !e2.terraza) e2.techo = false;
+      if (e.id === 'solar' && !e2.solar) e2.bateria = false;
+      setCfg({ ex: e2 }, 'ext', e2[e.id] && e.id !== 'bateria' ? toExterior() : null);
+    };
+    var mkOpt = function (o, on, pick, extra) {
+      return Object.assign({
+        label: o.label, sub: o.sub || '', priceTxt: plus(o.price), priceKind: priceKind(o.price),
+        on: flag(on), aria: bool(on), role: 'radio', kind: 'radio', pick: pick, disabled: !!o.disabled,
+        child: '0', hasSwatch: false, swatch: 'transparent', isNew: !!o.isNew, newAttr: flag(!!o.isNew)
+      }, extra || {});
+    };
+    var sizeOpts = [
+      mkOpt({ label: 'Modelo base · ' + dmRaw.m2 + ' m²', sub: fmt(dmRaw.l) + ' × ' + fmt(dmRaw.a) + ' m', price: 0 }, !mod,
+        function () { setCfg({ mod: false, dist: (cfg.dist === 'masdorm' || cfg.dist === 'oficina') ? 'base' : cfg.dist }, 'tam'); }),
+      mkOpt({ label: 'Agregar 1 módulo · ' + (dmRaw.m2 + modM2) + ' m²', sub: '+3,0 m de largo (' + fmt(dmRaw.l + 3) + ' m en total)', price: modPrice }, mod,
+        function () { setCfg({ mod: true }, 'tam'); })
+    ];
+    var distOpts = DIST.map(function (d) { return mkOpt(d, d.id === dist.id, function () { setCfg({ dist: d.id }, 'dist', { tab: 'planta' }); }); });
+    var revOpts = REV.map(function (r) {
+      return mkOpt(r, r.id === rev.id, function () { setCfg({ rev: r.id }, 'rev', toExterior()); }, { hasSwatch: true, swatch: r.color });
+    });
+    var termOpts = TERM.map(function (t) { return mkOpt(t, t.id === term.id, function () { setCfg({ term: t.id }, 'term', { tab: 'render', rview: 1 }); }); });
+    var extraOpts = EXTRAS.filter(function (e) { return !e.parent || exOn(e.parent); }).map(function (e) {
+      var on = exOn(e.id) && !e.disabled;
+      return mkOpt(Object.assign({}, e, { isNew: !!e.parent }), on, e.disabled ? function () {} : function () { toggleEx(e); },
+        { role: 'checkbox', kind: 'check', child: flag(!!e.parent) });
+    });
+    var zonaOpts = ZONA.map(function (z) { return mkOpt(z, z.id === zona.id, function () { setCfg({ zona: z.id }, 'zona'); }); });
+
+    var ter = exOn('terraza');
+    var techo = ter && exOn('techo');
+    var loft = canLoft && exOn('loft');
+    var solar = exOn('solar');
+    var agua = exOn('agua');
+    var estufa = exOn('estufa');
+
+    // resumen y precio
+    var raw = [{ label: 'Modelo ' + dmRaw.name + ' base', price: dmRaw.priceN }];
+    if (mod) raw.push({ label: 'Módulo extra (+' + modM2 + ' m²)', price: modPrice });
+    if (dist.price !== 0) raw.push({ label: 'Distribución: ' + dist.label, price: dist.price });
+    if (rev.price) raw.push({ label: 'Revestimiento ' + rev.label.toLowerCase(), price: rev.price });
+    if (term.price) raw.push({ label: 'Terminaciones ' + term.label.toLowerCase(), price: term.price });
+    EXTRAS.forEach(function (e) { if (!e.disabled && exOn(e.id) && (!e.parent || exOn(e.parent))) raw.push({ label: e.label, price: e.price }); });
+    if (zona.price) raw.push({ label: 'Traslado ' + zona.label.toLowerCase(), price: zona.price });
+    var total = raw.reduce(function (a, b) { return a + b.price; }, 0);
+    var dormTotal = dist.floor + (dmRaw.loftBase ? 1 : 0) + (loft ? 1 : 0);
+    var sum = {
+      m2Txt: m2Total + ' m²',
+      m2Sub: ter ? '+ 12 m² de terraza' : 'interior',
+      dormTxt: String(dormTotal),
+      dormSub: (dmRaw.loftBase || loft) ? 'incluye loft' : 'en planta',
+      lTxt: fmt(L + (ter ? 3 : 0)) + ' m',
+      lSub: ter ? 'con terraza' : 'casa',
+      lines: raw.map(function (x, i) { return { label: x.label, priceTxt: i === 0 ? money(x.price) : plus(x.price), kind: i === 0 ? 'pos' : priceKind(x.price) }; }),
+      totalTxt: money(total)
+    };
+    var quoteText = 'Tiny ' + dmRaw.name + ' · ' + m2Total + ' m²' + (ter ? ' + terraza 12 m²' : '') + '\n'
+      + (raw.length > 1 ? raw.slice(1).map(function (x) { return '• ' + x.label; }).join('\n') : '• Configuración base') + '\nRevestimiento: ' + rev.label
+      + '\nTotal estimado: ' + money(total);
+
+    // progreso de pasos
+    var STEPS = [{ k: 'tam', label: 'Tamaño' }, { k: 'dist', label: 'Distribución' }, { k: 'rev', label: 'Revestimiento' }, { k: 'term', label: 'Terminaciones' }, { k: 'ext', label: 'Extras' }, { k: 'zona', label: 'Traslado' }];
+    var nTouched = STEPS.filter(function (p) { return touched[p.k]; }).length;
+    var progress = STEPS.map(function (p, i) {
+      var on = !!touched[p.k];
+      return { n: String(i + 1), href: '#paso-' + (i + 1), on: flag(on), aria: 'Paso ' + (i + 1) + ': ' + p.label + (on ? ' (personalizado)' : '') };
+    });
+    var progressTxt = nTouched === 0 ? 'Configuración base · elige tus opciones' : 'Personalizaste ' + nTouched + ' de 6 pasos';
+
+    // planta (en porcentajes: escala con el ancho disponible)
+    var T = L + (ter ? 3 : 0);
+    var REF = Math.max(T, 10);
+    var units = [];
+    for (var i = 0; i < dist.floor; i++) units.push({ name: 'Dormitorio', w: 1, bg: '#E4ECFB' });
+    if (dist.office) units.push({ name: 'Oficina', w: 0.8, bg: '#F1E4D3' });
+    for (var j = 0; j < dmRaw.b; j++) units.push({ name: 'Baño', w: 0.55, bg: '#E3F0F2' });
+    var wt = units.reduce(function (a, u) { return a + u.w; }, 0);
+    var unitLen = Math.min(2.9, (L * 0.62) / wt);
+    var estarLen = L - unitLen * wt;
+    var roomsRaw = units.map(function (u) { return { name: u.name, len: u.w * unitLen, bg: u.bg }; })
+      .concat([{ name: 'Cocina · Estar', len: estarLen, bg: '#F7F2EA' }]);
+    var rooms = roomsRaw.map(function (r, k) {
+      return { name: r.name, lenTxt: fmt(r.len) + ' m', bg: r.bg, pct: r1(r.len / L * 100), br: k === roomsRaw.length - 1 ? 'none' : '1px solid #0B0D12' };
+    });
+    var plan = {
+      rooms: rooms,
+      houseW: r1(L / REF * 100), houseRatio: L + ' / ' + dmRaw.a,
+      ter: ter, deckW: r1(3 / REF * 100), deckRatio: '3 / ' + Math.min(4, dmRaw.a),
+      deckBorder: techo ? '3px solid #6B4A33' : '2px dashed #9C7650', deckTxt: techo ? 'Terraza techada' : 'Terraza',
+      mod: mod, baseW: r1(dmRaw.l / REF * 100), modW: r1(3 / REF * 100),
+      loft: dmRaw.loftBase || loft, loftTxt: dmRaw.loftBase ? 'Dormitorio en loft, sobre baño y cocina' : '+ Loft en altura sobre el baño',
+      lTxt: 'largo ' + fmt(L) + ' m', aTxt: 'ancho ' + fmt(dmRaw.a) + ' m',
+      totalTxt: m2Total + ' m²' + (ter ? ' + terraza 12 m²' : '')
+    };
+
+    // fachada
+    var sF = Math.min(36, 540 / (L + (ter ? 3 : 0) + (agua ? 1.6 : 0)));
+    var gY = 290;
+    var x0 = 50 + (agua ? 1.6 * sF : 0);
+    var W = L * sF;
+    var Wb = dmRaw.l * sF;
+    var pitch = 0.6 * sF;
+    var wallTop = gY - (dmRaw.h - 0.6) * sF;
+    var roofY = function (x) { return wallTop - pitch * ((x - x0) / W); };
+    var pts = function (arr) { return arr.map(function (p) { return r1(p[0]) + ',' + r1(p[1]); }).join(' '); };
+    var xa = x0 + W * 0.45, xb = x0 + W * 0.92, cx = x0 + W * 0.3;
+    var fz = {
+      aria: 'Fachada lateral del modelo ' + dmRaw.name + ' con revestimiento ' + rev.label,
+      wall: rev.color, revName: rev.label, hTxt: fmt(dmRaw.h) + ' m',
+      wallPts: pts([[x0, gY], [x0, wallTop], [x0 + W, wallTop - pitch], [x0 + W, gY]]),
+      roofPts: pts([[x0 - 12, roofY(x0 - 12)], [x0 + W + 12, roofY(x0 + W + 12)], [x0 + W + 12, roofY(x0 + W + 12) + 10], [x0 - 12, roofY(x0 - 12) + 10]]),
+      solarPts: pts([[xa, roofY(xa) - 2], [xb, roofY(xb) - 2], [xb, roofY(xb) - 2 - 0.3 * sF], [xa, roofY(xa) - 2 - 0.3 * sF]]),
+      solar: solar ? 1 : 0,
+      chX: r1(cx), chY: r1(roofY(cx) - 1.1 * sF), chW: r1(0.35 * sF), chH: r1(1.1 * sF + 6), estufa: estufa ? 1 : 0,
+      winY: r1(gY - 2.2 * sF), winH: r1(1.1 * sF),
+      w1X: r1(x0 + Wb * 0.1), w1W: r1(1.5 * sF),
+      w2X: r1(x0 + Wb * 0.72), w2W: r1(1.1 * sF),
+      dX: r1(x0 + Wb * 0.5), dY: r1(gY - 2.1 * sF), dW: r1(0.95 * sF), dH: r1(2.1 * sF),
+      mwX: r1(x0 + Wb + 0.8 * sF), mwW: r1(1.4 * sF), mod: mod ? 1 : 0,
+      seamX: r1(x0 + Wb), seamY: r1(roofY(x0 + Wb) + 10),
+      lwX: r1(x0 + Wb * 0.12), lwY: r1(wallTop + 0.35 * sF), lwS: r1(0.6 * sF), loft: (loft || dmRaw.loftBase) ? 1 : 0,
+      deckX: r1(x0 + W), deckY: r1(gY - 0.45 * sF), deckW: r1(3 * sF), deckH: r1(0.45 * sF), ter: ter ? 1 : 0,
+      tY: r1(gY - 2.7 * sF), tW: r1(3 * sF + 6), postX: r1(x0 + W + 3 * sF - 4), postH: r1(2.25 * sF), techo: techo ? 1 : 0,
+      tankX: 50, tankY: r1(gY - 1.7 * sF), tankW: r1(1.2 * sF), tankH: r1(1.7 * sF), agua: agua ? 1 : 0
+    };
+
+    // vista ilustrada: exterior frontal
+    var sx = Math.min(64, 280 / dmRaw.a);
+    var gy = 300, hw = dmRaw.a * sx, xL = 320 - hw / 2, xR = 320 + hw / 2;
+    var rise = dmRaw.a * 0.32;
+    var eave = gy - (dmRaw.h - rise) * sx, apex = gy - dmRaw.h * sx;
+    var sl = (eave - apex) / (hw / 2);
+    var roofAt = function (x) { return apex + Math.abs(x - 320) * sl; };
+    var baseY = gy - (ter ? 0.35 * sx : 0);
+    var dW = 0.9 * sx, dH = 2.05 * sx, dX = xR - dW - 0.28 * sx;
+    var wW = 0.9 * sx, wH = 1.0 * sx, wY = baseY - 2.1 * sx, w1X = xL + 0.28 * sx, w2X = w1X + 1.25 * sx;
+    var lwS = 0.5 * sx, chXc = 320 + hw * 0.25, sA = xL + hw * 0.08, sB = 320 - hw * 0.12;
+    var deckX = xL - 0.6 * sx, deckW = hw + 1.2 * sx, slabY = baseY - 2.5 * sx;
+    var ext = {
+      wall: rev.color, door: rev.door, patV: rev.patV, patH: rev.patH, patVL: rev.patVL,
+      wallPts: pts([[xL, gy], [xL, eave], [320, apex], [xR, eave], [xR, gy]]),
+      roofPts: pts([[xL - 16, eave + 16 * sl], [320, apex - 4], [xR + 16, eave + 16 * sl]]),
+      wY: r1(wY), wW: r1(wW), wH: r1(wH), wB: r1(wY + wH), wcy: r1(wY + wH / 2),
+      w1X: r1(w1X), w1R: r1(w1X + wW), w1cx: r1(w1X + wW / 2),
+      w2X: r1(w2X), w2R: r1(w2X + wW), w2cx: r1(w2X + wW / 2), w2: dmRaw.a >= 4 ? 1 : 0,
+      dX: r1(dX), dY: r1(baseY - dH), dW: r1(dW), dH: r1(dH), knobX: r1(dX + dW * 0.8), knobY: r1(baseY - dH * 0.48),
+      lwX: r1(320 - lwS / 2), lwY: r1(eave - lwS * 0.55), lwS: r1(lwS), loft: (loft || dmRaw.loftBase) ? 1 : 0,
+      chX: r1(chXc), chY: r1(roofAt(chXc) - 0.9 * sx), chW: r1(0.3 * sx), chH: r1(0.9 * sx + 10), estufa: estufa ? 1 : 0,
+      solarPts: pts([[sA, roofAt(sA) - 9], [sB, roofAt(sB) - 9], [sB, roofAt(sB) - 9 - 0.22 * sx], [sA, roofAt(sA) - 9 - 0.22 * sx]]), solar: solar ? 1 : 0,
+      deckX: r1(deckX), deckY: r1(baseY), deckW: r1(deckW), deckH: r1(gy - baseY), ter: ter ? 1 : 0,
+      slabY: r1(slabY), postL: r1(deckX + 4), postR: r1(deckX + deckW - 10), postH: r1(baseY - slabY), techo: techo ? 1 : 0,
+      tankX: r1(xL - 2.0 * sx), tankY: r1(gy - 1.5 * sx), tankW: r1(1.0 * sx), tankH: r1(1.5 * sx), agua: agua ? 1 : 0
+    };
+    // vista ilustrada: interior
+    var iv = {
+      floor: term.id === 'prem' ? '#B5824F' : '#CFC9BF',
+      cab: term.id === 'prem' ? '#22283A' : '#FFFFFF',
+      top: term.id === 'prem' ? '#E9ECEF' : '#E3E0D8',
+      estufa: estufa ? 1 : 0, loft: (loft || dmRaw.loftBase) ? 1 : 0,
+      aria: 'Interior ilustrado del modelo ' + dmRaw.name + ' con terminaciones ' + term.label.toLowerCase()
+    };
+    var VIEWS = [{ k: 'exterior', label: 'Exterior' }, { k: 'interior', label: 'Interior' }];
+    var rv = Math.min(s.rview || 0, VIEWS.length - 1);
+    var rd = {
+      isExt: rv === 0, isInt: rv === 1,
+      aria: 'Fachada frontal ilustrada del modelo ' + dmRaw.name + ' con revestimiento ' + rev.label.toLowerCase(),
+      caption: 'Ilustración referencial · ' + dmRaw.name + ' · ' + (rv === 0 ? rev.label : 'terminaciones ' + term.label.toLowerCase()) + (mod ? ' · con módulo extra' : '') + (ter && rv === 0 ? ' · terraza' : ''),
+      views: VIEWS.map(function (v, k) {
+        var on = k === rv;
+        return { label: v.label, on: flag(on), aria: bool(on), pick: function () { self.setState({ rview: k }); } };
+      })
+    };
+    var tab = s.tab || 'render';
+    var previewTabs = [{ k: 'render', label: 'Vista' }, { k: 'planta', label: 'Planta' }, { k: 'fachada', label: 'Fachada' }].map(function (t) {
+      var on = t.k === tab;
+      return { id: 'pv-' + t.k, label: t.label, on: flag(on), aria: bool(on), pick: function () { self.setState({ tab: t.k }); } };
+    });
+    var modelPills = MODELS.map(function (m) {
+      var on = m.id === dmRaw.id;
+      return { label: m.name, on: flag(on), aria: bool(on), pick: function () { openDetail(m.id, true); } };
+    });
+
+    var view = s.view === 'detail' ? 'detail' : 'home';
+    var formModel = s.formModel != null ? s.formModel : (s.quote ? 'Tiny ' + dmRaw.name + ' personalizada' : (sel ? 'Modelo ' + sel.name : ''));
+    var fe = s.formErr || {};
+    var toast = s.toast || null;
+    var menuOpen = !!s.menuOpen;
+
+    var saveQuote = function () { self.setState({ quote: quoteText, formModel: null, formSent: false, menuOpen: false }); };
+
+    return {
+      navTo: navTo, viewAttr: view,
+      isHome: view === 'home', isDetail: view === 'detail',
+      // header
+      menuOpen: menuOpen, menuClosed: !menuOpen, menuExpanded: bool(menuOpen), menuLabel: menuOpen ? 'Cerrar menú' : 'Abrir menú',
+      toggleMenu: function () { self.setState({ menuOpen: !(self.state || {}).menuOpen }); },
+      headerQuote: function () { if ((self.state || {}).view === 'detail') saveQuote(); else self.setState({ menuOpen: false }); },
+      // configurador
+      isM2: mode === 'm2', isMed: mode === 'med',
+      onM2: flag(mode === 'm2'), onMed: flag(mode === 'med'), ariaM2: bool(mode === 'm2'), ariaMed: bool(mode === 'med'),
+      filtrosLabelledBy: mode === 'm2' ? 'tab-m2' : 'tab-med',
+      setM2: function () { self.setState({ mode: 'm2', selManual: false }); },
+      setMed: function () { self.setState({ mode: 'med', selManual: false }); },
+      target: target, targetLabel: target + ' m²',
+      onTarget: function (e) { self.setState({ target: Number(e.target.value), selManual: false }); },
+      maxL: maxL, maxLLabel: fmt(maxL) + ' m',
+      onMaxL: function (e) { self.setState({ maxL: Number(e.target.value), selManual: false }); },
+      maxA: maxA, maxALabel: fmt(maxA) + ' m',
+      onMaxA: function (e) { self.setState({ maxA: Number(e.target.value), selManual: false }); },
+      maxH: maxH, maxHLabel: fmt(maxH) + ' m',
+      onMaxH: function (e) { self.setState({ maxH: Number(e.target.value), selManual: false }); },
+      dorms: dorms, matchText: matchText, models: models,
+      sel: sel || {}, hasSel: !!sel, noSel: !sel, selBadge: selBadge,
+      multiMatch: matchedPills.length > 1, matchedPills: matchedPills,
+      emptyReason: emptyReason, hasNear: !!near, nearName: near ? near.name : '',
+      showNear: function () { if (near) self.setState({ sel: near.id, selManual: true }); },
+      openSel: function () { if (sel) openDetail(sel.id); },
+      planPct: sel ? r1(sel.l / 15 * 100) : 0,
+      planRatio: sel ? sel.l + ' / ' + sel.a : '1 / 1',
+      // catálogo
+      shownModels: shownModels, matchCount: n,
+      onOnly: flag(onlyMatch), ariaOnly: bool(onlyMatch), catalogEmpty: onlyMatch && n === 0,
+      toggleOnly: function () { self.setState({ onlyMatch: !(self.state || {}).onlyMatch }); },
+      // detalle
+      dm: dm, modelPills: modelPills, previewTabs: previewTabs, previewLabelledBy: 'pv-' + tab,
+      isRender: tab === 'render', isPlanta: tab === 'planta', isFachada: tab === 'fachada',
+      rd: rd, ext: ext, iv: iv, plan: plan, fz: fz, sum: sum,
+      progress: progress, progressTxt: progressTxt,
+      sizeHint: 'Largo total: ' + fmt(L) + ' m',
+      sizeOpts: sizeOpts, distOpts: distOpts, revOpts: revOpts, termOpts: termOpts, extraOpts: extraOpts, zonaOpts: zonaOpts,
+      saveQuote: saveQuote,
+      resetCfg: function () {
+        var st = self.state || {};
+        showToast({ cfg: defaultCfg(), rview: 0 }, { msg: 'Reiniciaste las opciones.', undo: { cfg: st.cfg || defaultCfg() } });
+      },
+      // aviso
+      hasToast: !!toast, toastMsg: toast ? toast.msg : '', toastUndo: !!(toast && toast.undo),
+      undoToast: function () { var t = (self.state || {}).toast; if (t && t.undo) self.setState(Object.assign({}, t.undo, { toast: null })); },
+      closeToast: function () { self.setState({ toast: null }); },
+      // contacto
+      hasQuote: !!s.quote, quoteText: s.quote || '',
+      formModel: formModel,
+      onFormModel: function (e) { self.setState({ formModel: e.target.value }); },
+      formSent: !!s.formSent, formOpen: !s.formSent, sentName: s.sentName || '',
+      errNombre: !!fe.nombre, errNombreTxt: fe.nombre || '', invNombre: bool(!!fe.nombre),
+      errMail: !!fe.mail, errMailTxt: fe.mail || '', invMail: bool(!!fe.mail || !!fe.contacto),
+      errContacto: !!fe.contacto, noErrContacto: !fe.contacto, errContactoTxt: fe.contacto || '', invTel: bool(!!fe.contacto),
+      sendForm: function () {
+        var v = function (id) { var el = document.getElementById(id); return el ? String(el.value || '').trim() : ''; };
+        var nombre = v('c-nombre'), tel = v('c-tel'), mail = v('c-mail');
+        var err = {};
+        if (!nombre) err.nombre = 'Escribe tu nombre.';
+        if (!tel && !mail) err.contacto = 'Déjanos un teléfono o un correo para responderte.';
+        else if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) err.mail = 'Revisa el correo: debería verse como nombre@dominio.cl.';
+        if (Object.keys(err).length) {
+          var first = err.nombre ? 'c-nombre' : (err.mail ? 'c-mail' : 'c-tel');
+          self.setState({ formErr: err }, function () { var el = document.getElementById(first); if (el) el.focus(); });
+          return;
+        }
+        // TODO: conectar con el backend / servicio de correo real antes de publicar.
+        self.setState({ formErr: null, formSent: true, sentName: nombre.split(' ')[0] });
+      },
+      resetForm: function () { self.setState({ formSent: false, formErr: null }); }
+    };
+  }
+}
+window.__dcBoot(Component);
+</script>
+</body>
+</html>
